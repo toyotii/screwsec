@@ -68,10 +68,10 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;col
 .hero h1 em{font-style:normal;color:var(--red)}
 .hero-sub{margin-top:32px;max-width:460px;font-size:18px;line-height:1.85;color:var(--txt);opacity:0;animation:fu .5s .4s forwards}
 .hero-cta{margin-top:44px;display:flex;gap:16px;align-items:center;opacity:0;animation:fu .5s .55s forwards}
-.hero-metrics{position:absolute;bottom:52px;right:48px;display:flex;gap:52px;opacity:0;animation:fu .5s .7s forwards}
-.metric-num{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--white);letter-spacing:2px;text-align:right}
+.hero-metrics{display:flex;gap:52px;opacity:0;animation:fu .5s .7s forwards;margin-top:60px;padding-top:40px;border-top:1px solid var(--border)}
+.metric-num{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--white);letter-spacing:2px;text-align:left}
 .metric-num span{color:var(--red)}
-.metric-lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--muted);text-align:right;text-transform:uppercase}
+.metric-lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--muted);text-align:left;text-transform:uppercase}
 @keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .features-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border)}
 .fs-item{padding:40px 32px;border-right:1px solid var(--border);transition:background .3s}
@@ -149,7 +149,7 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;col
 .plan.featured .plan-btn:hover{background:var(--red2)}
 
 /* ABOUT */
-.about-wrap{padding:52px 48px;max-width:840px}
+.about-wrap{padding:52px 48px;max-width:860px;margin:0 auto}
 .about-wrap h1{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);letter-spacing:2px;margin-bottom:8px;line-height:1}
 .about-wrap h1 em{font-style:normal;color:var(--red)}
 .about-body{font-size:17px;color:var(--txt);line-height:1.9;margin-top:36px}
@@ -332,129 +332,137 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;col
 
 
 
-/* ═══ DECORATIVE ELEMENTS ═══ */
+/* ═══ STRONG DECORATIVE ELEMENTS ═══ */
 
-/* dot grid background for hero right side */
-.hero::before{
-  content:'';position:absolute;top:0;right:0;bottom:0;width:45%;
-  background-image:radial-gradient(circle,rgba(191,48,48,.18) 1px,transparent 1px);
-  background-size:28px 28px;
-  mask-image:linear-gradient(to left,rgba(0,0,0,.5) 0%,transparent 70%);
-  -webkit-mask-image:linear-gradient(to left,rgba(0,0,0,.5) 0%,transparent 70%);
-  pointer-events:none;z-index:0;
+/* Hero canvas sits behind content */
+#heroCanvas{position:absolute;inset:0;z-index:0;pointer-events:none}
+.hero>*:not(#heroCanvas){position:relative;z-index:1}
+
+/* Glowing gradient orbs */
+.glow-orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(80px);z-index:0}
+.glow-orb-1{width:500px;height:500px;bottom:-120px;left:-100px;background:radial-gradient(circle,rgba(191,48,48,.18) 0%,transparent 65%);animation:orb-pulse 7s ease-in-out infinite}
+.glow-orb-2{width:300px;height:300px;top:10%;right:5%;background:radial-gradient(circle,rgba(191,48,48,.1) 0%,transparent 65%);animation:orb-pulse 9s ease-in-out infinite reverse}
+@keyframes orb-pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.2);opacity:1}}
+
+/* Diagonal stripes visible accent */
+.features-strip{position:relative;overflow:hidden}
+.features-strip::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(-45deg,transparent,transparent 20px,rgba(191,48,48,.04) 20px,rgba(191,48,48,.04) 21px);
 }
 
-/* diagonal lines accent on features strip */
-.features-strip::before{
-  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
-  background:repeating-linear-gradient(
-    -55deg,
-    transparent,transparent 18px,
-    rgba(191,48,48,.025) 18px,rgba(191,48,48,.025) 19px
-  );
-  pointer-events:none;
+/* Corner brackets on ALL cards — visible */
+.step,.service-card,.blog-card,.plan,.cab-section,.q-card,.result-box{position:relative}
+.step::before,.service-card::before,.blog-card::before,.plan::before{
+  content:'';position:absolute;top:10px;left:10px;
+  width:18px;height:18px;
+  border-top:2px solid rgba(191,48,48,.3);
+  border-left:2px solid rgba(191,48,48,.3);
+  pointer-events:none;transition:border-color .3s;
 }
-.features-strip{position:relative}
+.step::after,.service-card::after,.blog-card::after,.plan::after{
+  content:'';position:absolute;bottom:10px;right:10px;
+  width:18px;height:18px;
+  border-bottom:2px solid rgba(191,48,48,.3);
+  border-right:2px solid rgba(191,48,48,.3);
+  pointer-events:none;transition:border-color .3s;
+}
+.step:hover::before,.service-card:hover::before,.blog-card:hover::before,.plan:hover::before,
+.step:hover::after,.service-card:hover::after,.blog-card:hover::after,.plan:hover::after{
+  border-color:rgba(191,48,48,.7);
+}
+/* plan.featured gets bright corners */
+.plan.featured::before,.plan.featured::after{border-color:rgba(191,48,48,.6)}
 
-/* corner bracket decoration for step cards */
-.step::after{
-  content:'';position:absolute;top:12px;right:12px;
-  width:20px;height:20px;
-  border-top:1px solid rgba(191,48,48,.2);
-  border-right:1px solid rgba(191,48,48,.2);
-  pointer-events:none;
-}
-.step{position:relative}
+/* Red glow on featured plan */
+.plan.featured{box-shadow:0 0 40px rgba(191,48,48,.12),inset 0 0 40px rgba(191,48,48,.03)}
 
-/* subtle hex grid on about page */
-#about::before{
-  content:'';position:fixed;top:0;right:0;width:320px;height:100vh;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 0l28 16v32L28 64 0 48V16z' fill='none' stroke='rgba(191,48,48,0.06)' stroke-width='1'/%3E%3C/svg%3E");
-  background-size:56px 100px;
-  pointer-events:none;z-index:0;opacity:1;
-}
+/* Section title brackets — visible */
+.sec-title::before{content:'[ ';color:rgba(191,48,48,.35);font-family:'Space Mono',monospace;font-size:.55em;vertical-align:middle}
+.sec-title::after{content:' ]';color:rgba(191,48,48,.35);font-family:'Space Mono',monospace;font-size:.55em;vertical-align:middle}
 
-/* animated red scanning line on constructor */
-#constructor .constructor-wrap::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(to right,transparent,var(--red),transparent);
-  animation:scanH 6s ease-in-out infinite;
-  pointer-events:none;opacity:.4;
-}
-#constructor .constructor-wrap{position:relative}
-@keyframes scanH{0%,100%{top:5%;opacity:0}50%{top:95%;opacity:1}}
-
-/* glowing orb bottom-left on hero */
-.hero-orb{
-  position:absolute;bottom:-80px;left:-80px;
-  width:320px;height:320px;
-  background:radial-gradient(circle,rgba(191,48,48,.08) 0%,transparent 70%);
-  pointer-events:none;z-index:0;
-  animation:pulse-orb 8s ease-in-out infinite;
-}
-@keyframes pulse-orb{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.15);opacity:1}}
-
-/* cross/plus marks scattered in hero */
-.hero-cross{
-  position:absolute;color:rgba(191,48,48,.2);
-  font-family:'Space Mono',monospace;font-size:14px;
-  pointer-events:none;user-select:none;
-  animation:fade-cross 5s ease-in-out infinite;
-}
-@keyframes fade-cross{0%,100%{opacity:.15}50%{opacity:.4}}
-
-/* bracket decoration on section titles */
-.sec-title::before{
-  content:'[';color:rgba(191,48,48,.15);
-  font-family:'Space Mono',monospace;font-size:.6em;
-  vertical-align:middle;margin-right:8px;
-}
-.sec-title::after{
-  content:']';color:rgba(191,48,48,.15);
-  font-family:'Space Mono',monospace;font-size:.6em;
-  vertical-align:middle;margin-left:8px;
-}
-
-/* thin vertical accent lines on cta banner */
+/* CTA banner — diagonal light sweep */
 .cta-banner{position:relative;overflow:hidden}
 .cta-banner::before{
-  content:'';position:absolute;top:0;bottom:0;left:50%;
-  width:1px;background:linear-gradient(to bottom,transparent,rgba(191,48,48,.12),transparent);
-  pointer-events:none;
+  content:'';position:absolute;top:-50%;left:-80%;width:60%;height:200%;
+  background:linear-gradient(105deg,transparent 40%,rgba(191,48,48,.06) 50%,transparent 60%);
+  animation:sweep 8s ease-in-out infinite;pointer-events:none;
 }
-.cta-banner::after{
-  content:'';position:absolute;top:0;bottom:0;left:25%;
-  width:1px;background:linear-gradient(to bottom,transparent,rgba(191,48,48,.06),transparent);
-  pointer-events:none;
-}
+@keyframes sweep{0%{left:-80%}100%{left:120%}}
 
-/* circuit-like corner on service cards */
-.service-card::after{
-  content:'';position:absolute;bottom:12px;right:12px;
-  width:24px;height:24px;
-  border-bottom:1px solid rgba(191,48,48,.18);
-  border-right:1px solid rgba(191,48,48,.18);
-  pointer-events:none;
-}
+/* Hero metrics separator */
+.hero-metrics{border-top:1px solid var(--border);padding-top:32px}
+.hero-metrics>div{padding-right:40px;border-right:1px solid var(--border)}
+.hero-metrics>div:last-child{border-right:none}
 
-/* top-left corner on blog cards */
-.blog-card::before{
-  content:'';position:absolute;top:12px;left:12px;
-  width:16px;height:16px;
-  border-top:1px solid rgba(191,48,48,.2);
-  border-left:1px solid rgba(191,48,48,.2);
-  pointer-events:none;
+/* Scanline effect on constructor */
+#constructor .constructor-wrap::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent 0%,var(--red) 50%,transparent 100%);
+  animation:hscan 5s ease-in-out infinite;opacity:.5;pointer-events:none;
 }
-.blog-card{position:relative}
+@keyframes hscan{0%,100%{top:0%;opacity:0}50%{top:100%;opacity:.6}}
 
-/* plan card subtle grid */
-.plan::before{
+/* Pricing page — radar circle bg */
+.pricing-wrap::after{
+  content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;
+  border-radius:50%;
+  background:conic-gradient(from 0deg,transparent 0deg,rgba(191,48,48,.06) 60deg,transparent 60deg);
+  animation:radar 8s linear infinite;pointer-events:none;z-index:0;
+}
+@keyframes radar{to{transform:rotate(360deg)}}
+.pricing-wrap{position:relative;overflow:hidden}
+.plans-grid{position:relative;z-index:1}
+
+/* About — grid background */
+.about-wrap::after{
+  content:'';position:absolute;top:0;right:-20px;width:260px;height:260px;
+  background-image:
+    linear-gradient(rgba(191,48,48,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(191,48,48,.08) 1px,transparent 1px);
+  background-size:24px 24px;
+  mask-image:radial-gradient(circle at 70% 30%,black 0%,transparent 70%);
+  -webkit-mask-image:radial-gradient(circle at 70% 30%,black 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+.about-wrap{position:relative;overflow:hidden}
+.about-body,.stack-list,.about-wrap h1{position:relative;z-index:1}
+
+/* Blog page — subtle horizontal lines */
+.blog-wrap{position:relative;overflow:hidden}
+.blog-wrap::before{
   content:'';position:absolute;inset:0;
-  background-image:radial-gradient(circle,rgba(191,48,48,.05) 1px,transparent 1px);
-  background-size:20px 20px;
-  pointer-events:none;opacity:0;transition:opacity .3s;
+  background:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(191,48,48,.03) 60px,rgba(191,48,48,.03) 61px);
+  pointer-events:none;
 }
-.plan:hover::before{opacity:1}
+
+/* Contacts — waveform decoration */
+.contacts-wrap{position:relative;overflow:hidden}
+.contacts-wrap::after{
+  content:'';position:absolute;bottom:0;right:0;width:300px;height:160px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 160'%3E%3Cpolyline points='0,80 30,40 60,100 90,20 120,110 150,50 180,90 210,30 240,70 270,45 300,80' stroke='rgba(191,48,48,0.2)' stroke-width='1.5' fill='none'/%3E%3Cpolyline points='0,100 30,65 60,115 90,45 120,125 150,70 180,105 210,55 240,90 270,65 300,95' stroke='rgba(191,48,48,0.1)' stroke-width='1' fill='none' stroke-dasharray='5 8'/%3E%3C/svg%3E") no-repeat bottom right;
+  pointer-events:none;
+}
+
+/* Service cards — glowing bottom line */
+.service-card::before{display:none}
+.service-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent,var(--red),transparent);
+  transform:scaleX(0);transform-origin:center;transition:transform .4s;
+  pointer-events:none;border:none;width:auto;height:2px;top:auto;right:0;bottom:0;left:0;
+}
+.service-card:hover::after{transform:scaleX(1)}
+.service-card:hover{background:var(--redglow)}
+
+/* Red dot accent on feature icons */
+.fs-icon{position:relative;display:inline-block}
+.fs-icon::after{
+  content:'';position:absolute;top:-3px;right:-3px;
+  width:6px;height:6px;border-radius:50%;
+  background:var(--red);opacity:.7;
+}
+
 </style>
 </head>
 <body>
@@ -497,13 +505,10 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;col
 <!-- HOME -->
 <div id="home" class="page active">
   <div class="hero">
+    <canvas id="heroCanvas"></canvas>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
     <div class="hero-line"></div>
-    <div class="hero-orb"></div>
-    <span class="hero-cross" style="top:18%;right:22%">+</span>
-    <span class="hero-cross" style="top:42%;right:38%;animation-delay:2s">×</span>
-    <span class="hero-cross" style="top:65%;right:18%;animation-delay:4s">+</span>
-    <span class="hero-cross" style="top:28%;right:52%;animation-delay:1s;font-size:10px">◆</span>
-    <span class="hero-cross" style="top:72%;right:44%;animation-delay:3s;font-size:10px">◆</span>
     <p class="tag">// Конструктор политики ИБ для бизнеса</p>
     <h1>ЗАЩИТА<br><em>БЕЗ ЛИШНИХ</em><br>СЛОВ.</h1>
     <p class="hero-sub">Ответьте на вопросы — получите готовую политику информационной безопасности, чеклист и рекомендации для вашей компании.</p>
@@ -1342,6 +1347,137 @@ document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('authModal').addEventListener('click',function(e){if(e.target===this)closeAuth();});
   document.getElementById('mobMenu').addEventListener('click',function(e){if(e.target===this)closeMob();});
 });
+
+// ═══ CANVAS PARTICLE NETWORK (mouse-interactive) ═══
+(function(){
+  var canvas = document.getElementById('heroCanvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var mouse = {x: -9999, y: -9999};
+  var particles = [];
+  var N = 70;
+  var animId;
+
+  function resize(){
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+
+  function Particle(){
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4;
+    this.r = Math.random() * 1.5 + 0.5;
+    this.opacity = Math.random() * 0.5 + 0.2;
+  }
+
+  Particle.prototype.update = function(){
+    // Mouse attraction
+    var dx = mouse.x - this.x;
+    var dy = mouse.y - this.y;
+    var dist = Math.sqrt(dx*dx + dy*dy);
+    if(dist < 160 && dist > 0){
+      var force = (160 - dist) / 160 * 0.015;
+      this.vx += dx / dist * force;
+      this.vy += dy / dist * force;
+    }
+    // Speed cap
+    var speed = Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+    if(speed > 1.2){ this.vx = this.vx/speed*1.2; this.vy = this.vy/speed*1.2; }
+    this.x += this.vx;
+    this.y += this.vy;
+    // Wrap edges
+    if(this.x < 0) this.x = canvas.width;
+    if(this.x > canvas.width) this.x = 0;
+    if(this.y < 0) this.y = canvas.height;
+    if(this.y > canvas.height) this.y = 0;
+  };
+
+  function init(){
+    particles = [];
+    for(var i=0;i<N;i++) particles.push(new Particle());
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    // Draw connections
+    for(var i=0;i<particles.length;i++){
+      for(var j=i+1;j<particles.length;j++){
+        var dx = particles[i].x - particles[j].x;
+        var dy = particles[i].y - particles[j].y;
+        var dist = Math.sqrt(dx*dx+dy*dy);
+        if(dist < 120){
+          var alpha = (1 - dist/120) * 0.25;
+          // Mouse proximity boosts line brightness
+          var mdx = mouse.x - (particles[i].x+particles[j].x)/2;
+          var mdy = mouse.y - (particles[i].y+particles[j].y)/2;
+          var md = Math.sqrt(mdx*mdx+mdy*mdy);
+          if(md < 180) alpha += (1-md/180)*0.3;
+          ctx.strokeStyle = 'rgba(191,48,48,'+Math.min(alpha,0.6)+')';
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    // Draw dots
+    for(var i=0;i<particles.length;i++){
+      var p = particles[i];
+      var dx = mouse.x - p.x, dy = mouse.y - p.y;
+      var md = Math.sqrt(dx*dx+dy*dy);
+      var glow = md < 140 ? (1-md/140)*0.8 : 0;
+      var alpha = p.opacity + glow;
+      ctx.fillStyle = 'rgba(191,48,48,'+Math.min(alpha,0.9)+')';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r + glow*1.5, 0, Math.PI*2);
+      ctx.fill();
+    }
+  }
+
+  function loop(){
+    particles.forEach(function(p){p.update();});
+    draw();
+    animId = requestAnimationFrame(loop);
+  }
+
+  function start(){
+    resize();
+    init();
+    if(animId) cancelAnimationFrame(animId);
+    loop();
+  }
+
+  // Only run when home page is visible
+  var observer = new MutationObserver(function(){
+    var home = document.getElementById('home');
+    if(home && home.classList.contains('active')){
+      if(!animId) start();
+    } else {
+      if(animId){ cancelAnimationFrame(animId); animId=null; }
+    }
+  });
+  var home = document.getElementById('home');
+  if(home) observer.observe(home, {attributes:true, attributeFilter:['class']});
+
+  window.addEventListener('resize', function(){
+    resize(); init();
+  });
+
+  document.addEventListener('mousemove', function(e){
+    var rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+  document.addEventListener('mouseleave', function(){
+    mouse.x = -9999; mouse.y = -9999;
+  });
+
+  // Start immediately if home is active
+  if(home && home.classList.contains('active')) start();
+})();
 </script>
 </body>
 </html>
