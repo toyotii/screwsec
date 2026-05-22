@@ -1002,57 +1002,38 @@ function initApiBlock(){ /* key is server-side, nothing to init */ }
 
 // ═══ PDF DOWNLOAD (print-based, works with Russian) ═══
 function downloadPDF(){
-  const text=document.getElementById('resultText').textContent;
+  var text=document.getElementById('resultText').textContent;
   if(!text||text.length<50){alert('Сначала сгенерируйте документ');return}
-
-  const companyMatch=text.match(/^([^
-]+)/);
-  const title=companyMatch?companyMatch[1].trim():'Политика ИБ';
-
-  // Format text into paragraphs
-  const paragraphs=text.split('\n').map(line=>{
-    const trimmed=line.trim();
-    if(!trimmed)return'<div style="height:8px"></div>';
-    // Section headings — all caps or starts with digit+dot
-    if(/^[0-9]+\./.test(trimmed)||trimmed===trimmed.toUpperCase()&&trimmed.length>3){
-      return`<h2 style="font-size:13pt;font-weight:bold;margin:18px 0 6px;color:#1a1a1a">${trimmed}</h2>`;
-    }
-    return`<p style="margin:4px 0;line-height:1.6">${trimmed}</p>`;
+  var today=new Date().toLocaleDateString('ru');
+  var paragraphs=text.split('\n').map(function(line){
+    var t=line.trim();
+    if(!t)return '<div style="height:6px"></div>';
+    if(/^[0-9]+\./.test(t))return '<h2>'+t+'</h2>';
+    return '<p>'+t+'</p>';
   }).join('');
-
-  const printWin=window.open('','_blank','width=900,height=700');
-  printWin.document.write(`<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<title>Политика ИБ — ScrewSec</title>
-<style>
-  @page{margin:20mm 25mm}
-  body{font-family:Arial,sans-serif;font-size:11pt;color:#1a1a1a;line-height:1.6;max-width:170mm;margin:0 auto;padding:10mm 0}
-  h1{font-size:15pt;text-align:center;margin-bottom:6px;border-bottom:2px solid #bf3030;padding-bottom:10px}
-  .meta{text-align:center;font-size:9pt;color:#666;margin-bottom:24px}
-  h2{font-size:12pt;font-weight:bold;margin:20px 0 6px;color:#1a1a1a}
-  p{margin:4px 0;text-align:justify}
-  .footer{margin-top:32px;padding-top:8px;border-top:1px solid #ccc;font-size:8pt;color:#888;text-align:center}
-  @media print{
-    .no-print{display:none}
-    body{padding:0}
-  }
-</style>
-</head>
-<body>
-<div class="no-print" style="background:#1a1a1a;color:#fff;padding:12px 20px;margin:-10mm -10mm 20px;display:flex;justify-content:space-between;align-items:center">
-  <span style="font-family:monospace;font-size:11px;letter-spacing:1px">SCREWSEC — ПОЛИТИКА ИБ</span>
-  <button onclick="window.print()" style="background:#bf3030;color:#fff;border:none;padding:8px 20px;font-size:11px;cursor:pointer;font-family:monospace;letter-spacing:1px">СКАЧАТЬ PDF</button>
-</div>
-<h1>ПОЛИТИКА ИНФОРМАЦИОННОЙ БЕЗОПАСНОСТИ</h1>
-<div class="meta">ScrewSec &nbsp;|&nbsp; screwsec.netlify.app &nbsp;|&nbsp; ${new Date().toLocaleDateString('ru')}</div>
-${paragraphs}
-<div class="footer">ScrewSec — Конструктор политики ИБ &nbsp;|&nbsp; screwsec.netlify.app</div>
-</body>
-</html>`);
-  printWin.document.close();
-  printWin.focus();
+  var css='@page{margin:20mm 25mm}'
+    +'body{font-family:Arial,sans-serif;font-size:11pt;color:#111;line-height:1.7;max-width:170mm;margin:0 auto}'
+    +'h1{font-size:14pt;text-align:center;border-bottom:2px solid #bf3030;padding-bottom:8px;margin-bottom:4px}'
+    +'.meta{text-align:center;font-size:9pt;color:#666;margin-bottom:20px}'
+    +'h2{font-size:11pt;font-weight:bold;margin:16px 0 4px}'
+    +'p{margin:4px 0;text-align:justify}'
+    +'.footer{margin-top:24px;border-top:1px solid #ccc;padding-top:6px;font-size:8pt;color:#999;text-align:center}'
+    +'@media print{.noprint{display:none}}';
+  var html='<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><title>Политика ИБ</title>'
+    +'<style>'+css+'</style></head><body>'
+    +'<div class="noprint" style="background:#111;color:#fff;padding:10px 20px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center">'
+    +'<span style="font-size:11px;font-family:monospace">SCREWSEC — ПОЛИТИКА ИБ</span>'
+    +'<button onclick="window.print()" style="background:#bf3030;color:#fff;border:none;padding:7px 18px;cursor:pointer;font-family:monospace;font-size:11px">СКАЧАТЬ PDF</button>'
+    +'</div>'
+    +'<h1>ПОЛИТИКА ИНФОРМАЦИОННОЙ БЕЗОПАСНОСТИ</h1>'
+    +'<div class="meta">ScrewSec &nbsp;|&nbsp; '+today+'</div>'
+    +paragraphs
+    +'<div class="footer">ScrewSec — screwsec.netlify.app</div>'
+    +'</body></html>';
+  var w=window.open('','_blank','width=860,height=700');
+  w.document.write(html);
+  w.document.close();
+  w.focus();
 }
 
 // ═══ GENERATE POLICY via Netlify Function (Groq on server) ═══
