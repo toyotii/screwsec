@@ -1360,8 +1360,10 @@ document.addEventListener('DOMContentLoaded',function(){
 
   function resize(){
     var hero = canvas.parentElement;
-    canvas.width = hero ? hero.offsetWidth : window.innerWidth;
-    canvas.height = hero ? hero.offsetHeight : window.innerHeight;
+    var w = hero ? hero.offsetWidth : 0;
+    var h = hero ? hero.offsetHeight : 0;
+    canvas.width = w > 0 ? w : window.innerWidth;
+    canvas.height = h > 0 ? h : window.innerHeight;
   }
 
   function Particle(){
@@ -1455,7 +1457,8 @@ document.addEventListener('DOMContentLoaded',function(){
   var observer = new MutationObserver(function(){
     var home = document.getElementById('home');
     if(home && home.classList.contains('active')){
-      if(!animId) start();
+      cancelAnimationFrame(animId); animId=null;
+      setTimeout(start, 50);
     } else {
       if(animId){ cancelAnimationFrame(animId); animId=null; }
     }
@@ -1476,8 +1479,10 @@ document.addEventListener('DOMContentLoaded',function(){
     mouse.x = -9999; mouse.y = -9999;
   });
 
-  // Start immediately if home is active
-  if(home && home.classList.contains('active')) start();
+  // Start after DOM is fully painted
+  if(home && home.classList.contains('active')){
+    setTimeout(start, 100);
+  }
 })();
 </script>
 </body>
