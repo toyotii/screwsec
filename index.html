@@ -306,6 +306,18 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;col
   .fs-item{border-right:none}
 }
 
+
+/* ═══ FAQ ═══ */
+.faq-item{border:1px solid var(--border);margin-bottom:2px;transition:border-color .3s}
+.faq-item:hover{border-color:var(--red2)}
+.faq-q{padding:20px 28px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:16px;color:var(--white)}
+.faq-q .faq-arrow{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--red);transition:transform .3s;flex-shrink:0;margin-left:16px}
+.faq-item.open .faq-arrow{transform:rotate(45deg)}
+.faq-a{display:none;padding:0 28px 20px;font-size:15px;color:var(--muted);line-height:1.75;border-top:1px solid var(--border)}
+.faq-item.open .faq-a{display:block}
+@media(max-width:768px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)!important}
+}
 /* ═══ PDF BUTTON ═══ */
 .btn-pdf{background:var(--surface);border:1px solid var(--red2);color:var(--red);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:14px 28px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
 .btn-pdf:hover{background:var(--red);color:var(--white);border-color:var(--red)}
@@ -390,6 +402,33 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;col
       <div class="step"><div class="step-n">03</div><h3>Получите результат</h3><p>Готовая политика ИБ сохраняется в личном кабинете. Скачайте в PDF или DOCX и передайте клиенту, регулятору или аудитору.</p></div>
     </div>
   </div>
+  <!-- STATS -->
+  <div style="border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);text-align:center;background:var(--surface)">
+    <div style="padding:44px 20px;border-right:1px solid var(--border)">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);letter-spacing:2px;line-height:1">80<span style="color:var(--red)">%</span></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:10px">МСП без политики ИБ</div>
+    </div>
+    <div style="padding:44px 20px;border-right:1px solid var(--border)">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);letter-spacing:2px;line-height:1">500<span style="color:var(--red)">млн</span></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:10px">Макс. штраф за утечку</div>
+    </div>
+    <div style="padding:44px 20px;border-right:1px solid var(--border)">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);letter-spacing:2px;line-height:1">15<span style="color:var(--red)">мин</span></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:10px">На создание документа</div>
+    </div>
+    <div style="padding:44px 20px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);letter-spacing:2px;line-height:1">30<span style="color:var(--red)">×</span></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:10px">Дешевле консультанта</div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <p class="sec-label">// Вопросы</p>
+    <h2 class="sec-title">ЧАСТЫЕ ВОПРОСЫ</h2>
+    <div id="faqList"></div>
+  </div>
+
   <div class="cta-banner">
     <h2>ГОТОВЫ<br>НАЧАТЬ?<br><em>БЕСПЛАТНО.</em></h2>
     <div style="display:flex;flex-direction:column;gap:12px">
@@ -405,7 +444,7 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;col
   <div class="constructor-wrap">
     <div id="constructorStart">
       <h1>КОНСТРУКТОР ПОЛИТИКИ ИБ</h1>
-      <p class="subtitle">Ответьте на 8 вопросов — получите готовую политику ИБ под вашу компанию</p>
+      <p class="subtitle">Ответьте на 13 вопросов — получите персонализированную политику ИБ</p>
 
       <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
       <div class="prog-meta"><span id="progLabel">Шаг 1 из 8</span><span id="progPct">0%</span></div>
@@ -792,14 +831,19 @@ function saveDocToUser(name,content){
 
 // CONSTRUCTOR
 const questions=[
-  {q:'Выберите отрасль вашей компании',type:'choice',opts:['IT / Разработка / SaaS','Финансы / Банки / Финтех','Медицина / Здравоохранение','Торговля / E-commerce','Производство / Промышленность','Юридические / Консалтинговые услуги','Другое']},
-  {q:'Сколько сотрудников в компании?',type:'choice',opts:['До 15 человек','15–50 человек','50–150 человек','150–500 человек','Более 500 человек']},
-  {q:'Какие данные обрабатывает ваша компания?',type:'choice',opts:['Персональные данные клиентов','Финансовые данные и платежи','Медицинские данные','Коммерческая тайна / NDA','Только внутренние данные сотрудников']},
-  {q:'Есть ли у вас сейчас действующая политика ИБ?',type:'choice',opts:['Нет, ничего нет','Есть старый документ, неактуальный','Частично задокументировано','Да, есть, но нужно обновить']},
-  {q:'Какой повод привёл к созданию политики ИБ?',type:'choice',opts:['Требование клиента или партнёра','Предстоящий аудит или проверка','Требование регулятора (152-ФЗ и др.)','Инцидент или утечка данных','Собственная инициатива']},
-  {q:'Есть ли в штате специалист по ИБ?',type:'choice',opts:['Нет, никого','Сисадмин совмещает функции ИБ','Есть выделенный ИБ-специалист','Пользуемся услугами внешнего подрядчика']},
-  {q:'Основная инфраструктура компании',type:'choice',opts:['Облачные сервисы (SaaS, IaaS)','Собственные серверы','Гибридная (облако + on-premise)','Преимущественно рабочие станции']},
-  {q:'Укажите название компании',type:'text',placeholder:'Например: ООО «Ромашка» или просто Моя компания'},
+  {q:'Выберите отрасль вашей компании',type:'choice',hint:'Это определяет специфику требований в вашем документе',opts:['IT / Разработка / SaaS','Финансы / Банки / Финтех','Медицина / Здравоохранение','Торговля / E-commerce','Производство / Промышленность','Юридические / Консалтинговые услуги','Другое']},
+  {q:'Сколько сотрудников в компании?',type:'choice',hint:'Влияет на формальность и детализацию документа',opts:['До 15 человек','15–50 человек','50–150 человек','150–500 человек','Более 500 человек']},
+  {q:'Какие данные обрабатывает ваша компания?',type:'choice',hint:'Выберите наиболее чувствительный тип данных',opts:['Персональные данные клиентов (ФИО, телефоны, email)','Финансовые данные и платёжные реквизиты','Медицинские и биометрические данные','Коммерческая тайна и NDA','Государственные или секретные данные','Только внутренние данные сотрудников']},
+  {q:'Есть ли у вас особо чувствительные данные?',type:'choice',hint:'Специальные категории ПДн требуют усиленной защиты',opts:['Нет, стандартные данные','Данные о здоровье сотрудников или клиентов','Биометрические данные (фото, отпечатки)','Данные несовершеннолетних','Судимости или политические взгляды']},
+  {q:'Какая основная инфраструктура компании?',type:'choice',hint:'Определяет технические меры защиты',opts:['Облачные сервисы (Google, Яндекс, AWS, Azure)','Собственные серверы в офисе','Гибридная (облако + собственные серверы)','Преимущественно рабочие станции без серверов','Удалённые сотрудники без централизованной инфраструктуры']},
+  {q:'Есть ли в компании удалённые сотрудники?',type:'choice',hint:'Удалённая работа требует отдельных мер защиты',opts:['Нет, все работают в офисе','Часть сотрудников работает удалённо','Большинство или все сотрудники удалённые','Гибридный формат']},
+  {q:'Есть ли сторонние подрядчики с доступом к данным?',type:'choice',hint:'Аутсорс и подрядчики — зона повышенного риска',opts:['Нет, только штатные сотрудники','Да, IT-аутсорсинг или разработчики','Да, бухгалтерия или юристы на аутсорсе','Да, несколько категорий подрядчиков']},
+  {q:'Есть ли у вас действующая политика ИБ?',type:'choice',hint:'Поможет определить с чего начать',opts:['Нет, ничего нет','Есть старый документ, неактуальный','Есть отдельные регламенты, но не единый документ','Да, есть, но нужно обновить']},
+  {q:'Были ли инциденты ИБ за последние 2 года?',type:'choice',hint:'Прошлый опыт влияет на акценты документа',opts:['Нет, инцидентов не было','Да, утечка данных или взлом','Да, вирус или ransomware','Да, мошенничество или фишинг сотрудников','Не знаю, не отслеживали']},
+  {q:'Какие нормативные требования нужно выполнить?',type:'choice',hint:'Выберите основной регулятор',opts:['152-ФЗ (персональные данные)','ГОСТ Р 57580 (финансовые организации)','Требования заказчика или партнёра','Подготовка к аудиту или сертификации','Нет конкретных требований — хочу базовую защиту']},
+  {q:'Есть ли в штате специалист по ИБ?',type:'choice',hint:'Влияет на реалистичность требований документа',opts:['Нет, никого','IT-специалист совмещает функции ИБ','Есть выделенный ИБ-специалист','Пользуемся услугами внешнего подрядчика по ИБ']},
+  {q:'Какой повод привёл к созданию политики ИБ?',type:'choice',hint:'Поможет сделать документ релевантным',opts:['Требование клиента или партнёра','Предстоящий аудит или проверка регулятора','Инцидент или утечка данных','Расширение компании','Собственная инициатива — хочу навести порядок']},
+  {q:'Укажите название компании',type:'text',hint:'Будет указано в заголовке документа',placeholder:'Например: ООО «Ромашка» или просто Моя компания'},
 ];
 
 let qIndex=0;
@@ -812,14 +856,16 @@ function renderQ(){
   document.getElementById('progLabel').textContent=`Шаг ${qIndex+1} из ${total}`;
   document.getElementById('progPct').textContent=pct+'%';
   document.getElementById('btnBack').style.display=qIndex>0?'inline-flex':'none';
-  document.getElementById('btnNext').textContent=qIndex===total-1?'Продолжить →':'Далее →';
-  let html=`<div class="q-text">${q.q}</div>`;
+    document.getElementById('btnNext').textContent=qIndex===total-1?'Сгенерировать политику →':'Далее →';
+  var hintHtml=q.hint?'<div class="q-hint">'+q.hint+'</div>':'';
+  var html='<div class="q-text">'+q.q+'</div>'+hintHtml;
   if(q.type==='choice'){
     html+='<div class="q-options">';
-    q.opts.forEach(o=>{const sel=answers[qIndex]===o?'sel':'';html+=`<button class="q-opt ${sel}" onclick="selectOpt(this,'${o.replace(/'/g,"\\'")}')">${o}</button>`});
+    q.opts.forEach(function(o){var sel=answers[qIndex]===o?'sel':'';html+='<button class="q-opt '+sel+'" onclick="selectOpt(this,this.textContent)">'+o+'</button>';});
     html+='</div>';
   }else{
-    html+=`<textarea class="q-input" id="textAns" placeholder="${q.placeholder||''}" oninput="answers[${qIndex}]=this.value">${answers[qIndex]}</textarea>`;
+    var curVal=answers[qIndex]||'';
+    html+='<textarea class="q-input" id="textAns" placeholder="'+(q.placeholder||'')+'" oninput="answers['+qIndex+']=this.value">'+curVal+'</textarea>';
   }
   document.getElementById('qCard').innerHTML=html;
 }
@@ -848,14 +894,32 @@ function resetConstructor(){
 }
 
 function generatePolicy(){
-  const[industry,size,dataType,currentPolicy,reason,secStaff,infra,companyName]=answers;
+  // questions order: industry,size,dataType,sensitiveData,infra,remoteWork,thirdParty,currentPolicy,incidents,compliance,secStaff,reason,companyName
+  var industry=answers[0]||'не указана';
+  var size=answers[1]||'не указан';
+  var dataType=answers[2]||'не указаны';
+  var sensitiveData=answers[3]||'нет';
+  var infra=answers[4]||'не указана';
+  var remoteWork=answers[5]||'нет';
+  var thirdParty=answers[6]||'нет';
+  var currentPolicy=answers[7]||'нет';
+  var incidents=answers[8]||'нет';
+  var compliance=answers[9]||'не указано';
+  var secStaff=answers[10]||'нет';
+  var reason=answers[11]||'не указана';
+  var companyName=answers[12]||'Моя компания';
   document.getElementById('constructorStart').style.display='none';
   document.getElementById('constructorResult').style.display='block';
   document.getElementById('resultLoading').classList.add('show');
   document.getElementById('resultDone').style.display='none';
+  generateWithGroq(companyName,industry,size,dataType,sensitiveData,infra,remoteWork,thirdParty,currentPolicy,incidents,compliance,secStaff,reason);
+}
 
-  // Small artificial delay so loading spinner shows
+function _unusedFallback(){
+  // kept for template fallback reference only
   setTimeout(()=>{
+    var companyName=answers[12]||'Моя компания';
+    var industry=answers[0];var size=answers[1];var dataType=answers[2];var secStaff=answers[10];var infra=answers[4];var reason=answers[11];
     const result=buildPolicyText(companyName,industry,size,dataType,secStaff,infra,reason);
     document.getElementById('resultLoading').classList.remove('show');
     document.getElementById('resultDone').style.display='block';
@@ -954,14 +1018,31 @@ function copyResult(){
 }
 
 // CONTACTS
-function sendContact(){
+async function sendContact(){
   const name=document.getElementById('cName').value.trim();
   const email=document.getElementById('cEmail').value.trim();
   const topic=document.getElementById('cTopic').value;
   const msg=document.getElementById('cMsg').value.trim();
   if(!name||!email||!topic||!msg){alert('Пожалуйста, заполните все поля');return}
-  document.getElementById('contactFields').style.display='none';
-  document.getElementById('formSuccess').style.display='block';
+  const btn=document.querySelector('#contactFields button');
+  btn.textContent='Отправляю...';btn.disabled=true;
+  try{
+    const resp=await fetch('https://formspree.io/f/xbdbyqpr',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name,email,topic,message:msg,_subject:'Заявка ScrewSec: '+topic})
+    });
+    if(resp.ok){
+      document.getElementById('contactFields').style.display='none';
+      document.getElementById('formSuccess').style.display='block';
+    }else{
+      btn.textContent='Отправить';btn.disabled=false;
+      alert('Ошибка отправки. Напишите напрямую на boburovtd25@st.ithub.ru');
+    }
+  }catch(e){
+    btn.textContent='Отправить';btn.disabled=false;
+    alert('Ошибка сети. Напишите напрямую на boburovtd25@st.ithub.ru');
+  }
 }
 
 // BLOG
@@ -1046,12 +1127,12 @@ function generatePolicy(){
   generateWithGroq(companyName,industry,size,dataType,currentPolicy,reason,secStaff,infra);
 }
 
-async function generateWithGroq(companyName,industry,size,dataType,currentPolicy,reason,secStaff,infra){
+async function generateWithGroq(companyName,industry,size,dataType,sensitiveData,infra,remoteWork,thirdParty,currentPolicy,incidents,compliance,secStaff,reason){
   try{
     const resp=await fetch('/.netlify/functions/generate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({companyName,industry,size,dataType,currentPolicy,reason,secStaff,infra})
+      body:JSON.stringify({companyName,industry,size,dataType,sensitiveData,infra,remoteWork,thirdParty,currentPolicy,incidents,compliance,secStaff,reason})
     });
     if(!resp.ok){const err=await resp.json().catch(()=>({}));throw new Error(err.error||'Ошибка сервера '+resp.status)}
     const data=await resp.json();
@@ -1060,25 +1141,54 @@ async function generateWithGroq(companyName,industry,size,dataType,currentPolicy
     document.getElementById('resultDone').style.display='block';
     document.getElementById('resultText').textContent=result;
     buildChecklist(industry,size);
-    saveDocToUser('Политика ИБ — '+companyName,result);
+    saveDocToUser('Политика ИБ (AI) — '+companyName,result);
   }catch(e){
     console.warn('Groq error, template fallback:',e.message);
     const result=buildPolicyText(companyName,industry,size,dataType,secStaff,infra,reason);
     document.getElementById('resultLoading').classList.remove('show');
     document.getElementById('resultDone').style.display='block';
-    document.getElementById('resultText').textContent=result;
+    document.getElementById('resultText').textContent=result+'
+
+[Шаблонная версия. Проверьте GROQ_API_KEY в Netlify.]';
     buildChecklist(industry,size);
     saveDocToUser('Политика ИБ — '+companyName,result);
   }
 }
 
-document.addEventListener('DOMContentLoaded',()=>{
+// ═══ FAQ ═══
+var faqs=[
+  {q:'Что такое политика информационной безопасности?',a:'Это документ, который описывает как компания защищает свои данные и информационные системы. Он определяет правила работы с данными, требования к паролям, порядок реагирования на инциденты и ответственность сотрудников. Без этого документа компания нарушает требования 152-ФЗ.'},
+  {q:'Обязательна ли политика ИБ для малого бизнеса?',a:'Если ваша компания обрабатывает персональные данные хотя бы одного клиента или сотрудника — да, обязательна. Этого требует 152-ФЗ. С 2025 года штрафы за его нарушение стали оборотными — до 3% от годовой выручки.'},
+  {q:'Чем ScrewSec отличается от шаблона из интернета?',a:'Шаблон одинаковый для всех. ScrewSec задаёт вопросы о вашей компании и генерирует документ с учётом вашей отрасли, размера, инфраструктуры и конкретных требований. Медицинская клиника и IT-стартап получат разные документы.'},
+  {q:'Как долго действует политика ИБ?',a:'Документ нужно пересматривать не реже одного раза в год или при существенных изменениях: смена инфраструктуры, новые сотрудники, новые виды данных. ScrewSec позволяет создать обновлённую версию в любой момент.'},
+  {q:'Достаточно ли одной политики ИБ для соответствия 152-ФЗ?',a:'Политика ИБ — один из обязательных документов. Также нужны: положение об обработке ПДн, согласия субъектов, приказ о назначении ответственного. Мы работаем над полным пакетом документов — следите за обновлениями.'},
+  {q:'Можно ли скачать готовый документ?',a:'Да. После прохождения опросника вы получаете политику ИБ, которую можно скачать в PDF прямо на сайте. Формат DOCX доступен в тарифе Бизнес.'},
+];
+function initFaq(){
+  var box=document.getElementById('faqList');
+  if(!box)return;
+  box.innerHTML=faqs.map(function(f,i){
+    return '<div class="faq-item" id="faq'+i+'">'
+      +'<div class="faq-q" onclick="toggleFaq('+i+')">'
+      +f.q
+      +'<span class="faq-arrow">+</span>'
+      +'</div>'
+      +'<div class="faq-a">'+f.a+'</div>'
+      +'</div>';
+  }).join('');
+}
+function toggleFaq(i){
+  var item=document.getElementById('faq'+i);
+  item.classList.toggle('open');
+}
+
+document.addEventListener('DOMContentLoaded',function(){
   renderQ();
   initApiBlock();
-  const u=getCurrentUser();if(u)updateNavForUser(u);
-  document.getElementById('authModal').addEventListener('click',function(e){if(e.target===this)closeAuth()});
-  // close mobile menu on outside click
-  document.getElementById('mobMenu').addEventListener('click',function(e){if(e.target===this)closeMob()});
+  initFaq();
+  var u=getCurrentUser();if(u)updateNavForUser(u);
+  document.getElementById('authModal').addEventListener('click',function(e){if(e.target===this)closeAuth();});
+  document.getElementById('mobMenu').addEventListener('click',function(e){if(e.target===this)closeMob();});
 });
 </script>
 </body>
