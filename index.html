@@ -1147,9 +1147,7 @@ async function generateWithGroq(companyName,industry,size,dataType,sensitiveData
     const result=buildPolicyText(companyName,industry,size,dataType,secStaff,infra,reason);
     document.getElementById('resultLoading').classList.remove('show');
     document.getElementById('resultDone').style.display='block';
-    document.getElementById('resultText').textContent=result+'
-
-[Шаблонная версия. Проверьте GROQ_API_KEY в Netlify.]';
+    document.getElementById('resultText').textContent=result+'\n\n[Шаблонная версия. Проверьте GROQ_API_KEY в Netlify.]';
     buildChecklist(industry,size);
     saveDocToUser('Политика ИБ — '+companyName,result);
   }
