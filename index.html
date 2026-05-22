@@ -331,6 +331,130 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;col
 .err-sub{font-size:16px;color:var(--muted);margin-bottom:36px}
 
 
+
+/* ═══ DECORATIVE ELEMENTS ═══ */
+
+/* dot grid background for hero right side */
+.hero::before{
+  content:'';position:absolute;top:0;right:0;bottom:0;width:45%;
+  background-image:radial-gradient(circle,rgba(191,48,48,.18) 1px,transparent 1px);
+  background-size:28px 28px;
+  mask-image:linear-gradient(to left,rgba(0,0,0,.5) 0%,transparent 70%);
+  -webkit-mask-image:linear-gradient(to left,rgba(0,0,0,.5) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+
+/* diagonal lines accent on features strip */
+.features-strip::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:repeating-linear-gradient(
+    -55deg,
+    transparent,transparent 18px,
+    rgba(191,48,48,.025) 18px,rgba(191,48,48,.025) 19px
+  );
+  pointer-events:none;
+}
+.features-strip{position:relative}
+
+/* corner bracket decoration for step cards */
+.step::after{
+  content:'';position:absolute;top:12px;right:12px;
+  width:20px;height:20px;
+  border-top:1px solid rgba(191,48,48,.2);
+  border-right:1px solid rgba(191,48,48,.2);
+  pointer-events:none;
+}
+.step{position:relative}
+
+/* subtle hex grid on about page */
+#about::before{
+  content:'';position:fixed;top:0;right:0;width:320px;height:100vh;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 0l28 16v32L28 64 0 48V16z' fill='none' stroke='rgba(191,48,48,0.06)' stroke-width='1'/%3E%3C/svg%3E");
+  background-size:56px 100px;
+  pointer-events:none;z-index:0;opacity:1;
+}
+
+/* animated red scanning line on constructor */
+#constructor .constructor-wrap::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--red),transparent);
+  animation:scanH 6s ease-in-out infinite;
+  pointer-events:none;opacity:.4;
+}
+#constructor .constructor-wrap{position:relative}
+@keyframes scanH{0%,100%{top:5%;opacity:0}50%{top:95%;opacity:1}}
+
+/* glowing orb bottom-left on hero */
+.hero-orb{
+  position:absolute;bottom:-80px;left:-80px;
+  width:320px;height:320px;
+  background:radial-gradient(circle,rgba(191,48,48,.08) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+  animation:pulse-orb 8s ease-in-out infinite;
+}
+@keyframes pulse-orb{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.15);opacity:1}}
+
+/* cross/plus marks scattered in hero */
+.hero-cross{
+  position:absolute;color:rgba(191,48,48,.2);
+  font-family:'Space Mono',monospace;font-size:14px;
+  pointer-events:none;user-select:none;
+  animation:fade-cross 5s ease-in-out infinite;
+}
+@keyframes fade-cross{0%,100%{opacity:.15}50%{opacity:.4}}
+
+/* bracket decoration on section titles */
+.sec-title::before{
+  content:'[';color:rgba(191,48,48,.15);
+  font-family:'Space Mono',monospace;font-size:.6em;
+  vertical-align:middle;margin-right:8px;
+}
+.sec-title::after{
+  content:']';color:rgba(191,48,48,.15);
+  font-family:'Space Mono',monospace;font-size:.6em;
+  vertical-align:middle;margin-left:8px;
+}
+
+/* thin vertical accent lines on cta banner */
+.cta-banner{position:relative;overflow:hidden}
+.cta-banner::before{
+  content:'';position:absolute;top:0;bottom:0;left:50%;
+  width:1px;background:linear-gradient(to bottom,transparent,rgba(191,48,48,.12),transparent);
+  pointer-events:none;
+}
+.cta-banner::after{
+  content:'';position:absolute;top:0;bottom:0;left:25%;
+  width:1px;background:linear-gradient(to bottom,transparent,rgba(191,48,48,.06),transparent);
+  pointer-events:none;
+}
+
+/* circuit-like corner on service cards */
+.service-card::after{
+  content:'';position:absolute;bottom:12px;right:12px;
+  width:24px;height:24px;
+  border-bottom:1px solid rgba(191,48,48,.18);
+  border-right:1px solid rgba(191,48,48,.18);
+  pointer-events:none;
+}
+
+/* top-left corner on blog cards */
+.blog-card::before{
+  content:'';position:absolute;top:12px;left:12px;
+  width:16px;height:16px;
+  border-top:1px solid rgba(191,48,48,.2);
+  border-left:1px solid rgba(191,48,48,.2);
+  pointer-events:none;
+}
+.blog-card{position:relative}
+
+/* plan card subtle grid */
+.plan::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(191,48,48,.05) 1px,transparent 1px);
+  background-size:20px 20px;
+  pointer-events:none;opacity:0;transition:opacity .3s;
+}
+.plan:hover::before{opacity:1}
 </style>
 </head>
 <body>
@@ -374,6 +498,12 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;col
 <div id="home" class="page active">
   <div class="hero">
     <div class="hero-line"></div>
+    <div class="hero-orb"></div>
+    <span class="hero-cross" style="top:18%;right:22%">+</span>
+    <span class="hero-cross" style="top:42%;right:38%;animation-delay:2s">×</span>
+    <span class="hero-cross" style="top:65%;right:18%;animation-delay:4s">+</span>
+    <span class="hero-cross" style="top:28%;right:52%;animation-delay:1s;font-size:10px">◆</span>
+    <span class="hero-cross" style="top:72%;right:44%;animation-delay:3s;font-size:10px">◆</span>
     <p class="tag">// Конструктор политики ИБ для бизнеса</p>
     <h1>ЗАЩИТА<br><em>БЕЗ ЛИШНИХ</em><br>СЛОВ.</h1>
     <p class="hero-sub">Ответьте на вопросы — получите готовую политику информационной безопасности, чеклист и рекомендации для вашей компании.</p>
@@ -443,7 +573,12 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;col
 <div id="constructor" class="page">
   <div class="constructor-wrap">
     <div id="constructorStart">
-      <h1>КОНСТРУКТОР ПОЛИТИКИ ИБ</h1>
+      <div style="display:flex;gap:6px;margin-bottom:20px">
+    <span style="width:10px;height:10px;border-radius:50%;background:#bf3030;opacity:.7;display:inline-block"></span>
+    <span style="width:10px;height:10px;border-radius:50%;background:#8a1f1f;opacity:.5;display:inline-block"></span>
+    <span style="width:10px;height:10px;border-radius:50%;background:#2a1a1a;display:inline-block;border:1px solid #3a2a2a"></span>
+  </div>
+  <h1>КОНСТРУКТОР ПОЛИТИКИ ИБ</h1>
       <p class="subtitle">Ответьте на 13 вопросов — получите персонализированную политику ИБ</p>
 
       <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
@@ -482,7 +617,16 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;col
 
 <!-- PRICING -->
 <div id="pricing" class="page">
-  <div class="pricing-wrap">
+  <div class="pricing-wrap" style="position:relative">
+  <svg style="position:absolute;top:0;right:0;opacity:.04;pointer-events:none" width="340" height="340" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="170" cy="170" r="140" stroke="#bf3030" stroke-width="1"/>
+    <circle cx="170" cy="170" r="100" stroke="#bf3030" stroke-width="1"/>
+    <circle cx="170" cy="170" r="60" stroke="#bf3030" stroke-width="1"/>
+    <line x1="30" y1="170" x2="310" y2="170" stroke="#bf3030" stroke-width="1"/>
+    <line x1="170" y1="30" x2="170" y2="310" stroke="#bf3030" stroke-width="1"/>
+    <line x1="71" y1="71" x2="269" y2="269" stroke="#bf3030" stroke-width="1"/>
+    <line x1="269" y1="71" x2="71" y2="269" stroke="#bf3030" stroke-width="1"/>
+  </svg>
     <p class="sec-label">// Тарифы</p>
     <h2 class="sec-title">ТАРИФНЫЕ ПЛАНЫ</h2>
     <div class="plans-grid">
@@ -536,7 +680,13 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;col
 
 <!-- ABOUT -->
 <div id="about" class="page">
-  <div class="about-wrap">
+  <div class="about-wrap" style="position:relative">
+  <svg style="position:absolute;top:40px;right:0;opacity:.06;pointer-events:none" width="200" height="200" viewBox="0 0 200 200" fill="none">
+    <defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#bf3030" stroke-width="0.5"/></pattern></defs>
+    <rect width="200" height="200" fill="url(%23grid)"/>
+    <rect x="60" y="60" width="80" height="80" fill="none" stroke="#bf3030" stroke-width="1"/>
+    <rect x="80" y="80" width="40" height="40" fill="rgba(191,48,48,0.15)"/>
+  </svg>
     <p class="sec-label">// О проекте</p>
     <h1>О ПРОЕКТЕ<br><em>SCREWSEC</em></h1>
     <div class="about-body">
@@ -619,7 +769,11 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;col
 
 <!-- CONTACTS -->
 <div id="contacts" class="page">
-  <div class="contacts-wrap">
+  <div class="contacts-wrap" style="position:relative">
+  <svg style="position:absolute;bottom:0;right:0;opacity:.05;pointer-events:none" width="280" height="200" viewBox="0 0 280 200" fill="none">
+    <polyline points="0,200 40,160 80,180 120,100 160,130 200,60 240,90 280,20" stroke="#bf3030" stroke-width="1.5" fill="none"/>
+    <polyline points="0,200 40,175 80,190 120,130 160,155 200,100 240,120 280,70" stroke="#bf3030" stroke-width="1" fill="none" stroke-dasharray="4 6"/>
+  </svg>
     <div class="contacts-info">
       <p class="sec-label" style="margin-bottom:12px">// Контакты</p>
       <h1>СВЯЖИТЕСЬ С НАМИ</h1>
