@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScrewSec — Конструктор политики информационной безопасности</title>
+<meta name="description" content="Создайте политику информационной безопасности онлайн за 15 минут. Соответствие 152-ФЗ и ГОСТ Р 57580. Бесплатно для малого и среднего бизнеса.">
+<meta name="keywords" content="политика информационной безопасности, 152-ФЗ, ГОСТ Р 57580, ИБ документы, конструктор политики ИБ">
+<meta property="og:title" content="ScrewSec — Конструктор политики ИБ">
+<meta property="og:description" content="Политика ИБ для вашей компании за 15 минут. Соответствие 152-ФЗ и ГОСТ Р 57580.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://screwsec.netlify.app">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://screwsec.netlify.app">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0a0a;--surface:#141010;--surface2:#1c1515;
+  --red:#bf3030;--red2:#8a1f1f;--redglow:rgba(191,48,48,.13);
+  --txt:#e8dede;--muted:#c4a8a8;--border:#2a1a1a;--white:#f4eeee;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'IBM Plex Sans',sans-serif;font-weight:300;overflow-x:hidden;min-height:100vh;font-size:17px;line-height:1.7}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");opacity:.5}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;border-bottom:1px solid var(--border);background:rgba(13,10,10,.92);backdrop-filter:blur(14px)}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:4px;color:var(--white);cursor:pointer}
+.logo span{color:var(--red)}
+nav ul{list-style:none;display:flex;gap:28px}
+nav ul li a{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;cursor:pointer}
+nav ul li a:hover,nav ul li a.active{color:var(--red)}
+.nav-right{display:flex;gap:10px;align-items:center}
+.btn-sm{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:9px 18px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.btn-sm:hover{border-color:var(--red);color:var(--red)}
+.btn-sm.primary{background:var(--red);border-color:var(--red);color:var(--white)}
+.btn-sm.primary:hover{background:var(--red2)}
+.page{display:none;min-height:100vh;padding-top:68px}
+.page.active{display:block}
+.btn{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:14px 36px;border:none;cursor:pointer;transition:all .2s}
+.btn-red{background:var(--red);color:var(--white)}
+.btn-red:hover{background:var(--red2);transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.btn-outline:hover{border-color:var(--red);color:var(--red)}
+.form-field{margin-bottom:14px}
+.form-field label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px}
+.form-field input,.form-field textarea,.form-field select{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--white);font-family:'IBM Plex Sans',sans-serif;font-size:14px;padding:11px 14px;outline:none;transition:border-color .2s;resize:vertical}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--red2)}
+.form-field select option{background:var(--surface);color:var(--white)}
+.form-field textarea{min-height:90px}
+.section{padding:80px 48px;border-top:1px solid var(--border)}
+.sec-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--red);text-transform:uppercase;margin-bottom:12px}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4vw,60px);color:var(--white);letter-spacing:2px;margin-bottom:48px;line-height:1}
+footer{border-top:1px solid var(--border);padding:26px 48px;display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:4px;color:var(--muted)}
+.footer-logo span{color:var(--red2)}
+footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--red2)}
+
+/* HOME */
+#home{position:relative;overflow:hidden}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:100px 48px 80px;position:relative}
+.hero-line{position:absolute;top:0;right:160px;bottom:0;width:1px;background:var(--border)}
+.hero-line::after{content:'';position:absolute;left:0;width:1px;height:100px;background:var(--red2);animation:scanv 5s ease-in-out infinite}
+@keyframes scanv{0%,100%{top:10%;opacity:0}50%{top:65%;opacity:1}}
+.tag{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:28px;opacity:0;animation:fu .5s .1s forwards}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,9vw,128px);line-height:.9;letter-spacing:2px;color:var(--white);opacity:0;animation:fu .5s .25s forwards}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero-sub{margin-top:32px;max-width:460px;font-size:18px;line-height:1.85;color:var(--txt);opacity:0;animation:fu .5s .4s forwards}
+.hero-cta{margin-top:44px;display:flex;gap:16px;align-items:center;opacity:0;animation:fu .5s .55s forwards}
+.hero-metrics{display:flex;gap:52px;opacity:0;animation:fu .5s .7s forwards;margin-top:60px;padding-top:40px;border-top:1px solid var(--border)}
+.metric-num{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--white);letter-spacing:2px;text-align:left}
+.metric-num span{color:var(--red)}
+.metric-lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--muted);text-align:left;text-transform:uppercase}
+@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.features-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border)}
+.fs-item{padding:40px 32px;border-right:1px solid var(--border);transition:background .3s}
+.fs-item:last-child{border-right:none}
+.fs-item:hover{background:var(--redglow)}
+.fs-icon{font-size:20px;color:var(--red);margin-bottom:16px}
+.fs-item h3{font-size:17px;font-weight:500;color:var(--white);margin-bottom:10px}
+.fs-item p{font-size:16px;color:var(--txt);line-height:1.7}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.step{padding:40px 32px;border:1px solid var(--border);transition:border-color .3s}
+.step:hover{border-color:var(--red2)}
+.step-n{font-family:'Bebas Neue',sans-serif;font-size:60px;color:var(--border);margin-bottom:20px;transition:color .3s}
+.step:hover .step-n{color:var(--red)}
+.step h3{font-size:18px;font-weight:500;color:var(--white);margin-bottom:12px}
+.step p{font-size:16px;color:var(--txt);line-height:1.7}
+.cta-banner{padding:80px 48px;border-top:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:space-between;gap:40px}
+.cta-banner h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5vw,72px);color:var(--white);letter-spacing:2px;line-height:1}
+.cta-banner h2 em{font-style:normal;color:var(--red)}
+
+/* CONSTRUCTOR */
+.constructor-wrap{max-width:860px;margin:0 auto;padding:52px 48px 80px}
+.constructor-wrap h1{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--white);letter-spacing:2px;margin-bottom:8px}
+.constructor-wrap .subtitle{font-size:15px;color:var(--muted);margin-bottom:32px}
+.prog-bar{height:2px;background:var(--border);margin-bottom:8px}
+.prog-fill{height:100%;background:var(--red);transition:width .4s}
+.prog-meta{display:flex;justify-content:space-between;margin-bottom:32px}
+.prog-meta span{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.q-card{border:1px solid var(--border);padding:40px;margin-bottom:24px}
+.q-text{font-size:18px;color:var(--white);margin-bottom:24px;line-height:1.5}
+.q-hint{font-size:13px;color:var(--muted);margin-bottom:20px;font-style:italic;line-height:1.6}
+.q-options{display:flex;flex-direction:column;gap:10px}
+.q-opt{padding:14px 20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'IBM Plex Sans',sans-serif;font-size:15px;text-align:left;cursor:pointer;transition:all .2s;width:100%}
+.q-opt:hover{border-color:var(--red2);color:var(--txt)}
+.q-opt.sel{border-color:var(--red);color:var(--red);background:var(--redglow)}
+.q-input{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--white);font-family:'IBM Plex Sans',sans-serif;font-size:15px;padding:12px 16px;outline:none;transition:border-color .2s;resize:vertical;min-height:72px}
+.q-input:focus{border-color:var(--red2)}
+.q-nav{display:flex;justify-content:space-between;align-items:center}
+.api-note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--red2);padding:16px 20px;font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.7}
+.api-note strong{color:var(--txt)}
+.result-box{border:1px solid var(--border);padding:40px}
+.result-loading{display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:60px;text-align:center}
+.result-loading.show{display:flex}
+.spin{width:32px;height:32px;border:2px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.result-loading p{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--red);text-transform:uppercase}
+.result-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:20px}
+.result-content{font-size:14px;color:var(--txt);line-height:1.9;white-space:pre-wrap}
+.result-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.checklist-box{border:1px solid var(--border);padding:32px;margin-top:16px}
+.checklist-box h3{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:16px}
+.cl-item{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--txt)}
+.cl-item:last-child{border-bottom:none}
+.cl-cb{width:16px;height:16px;border:1px solid var(--red2);flex-shrink:0;margin-top:2px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent}
+.cl-cb.done{background:var(--red);color:var(--white)}
+
+/* PRICING */
+.pricing-wrap{padding:52px 48px}
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px}
+.plan{padding:40px 32px;border:1px solid var(--border);transition:border-color .3s;position:relative}
+.plan:hover{border-color:var(--red2)}
+.plan.featured{border-color:var(--red);background:rgba(191,48,48,.04)}
+.plan-badge{position:absolute;top:-1px;right:28px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;background:var(--red);color:var(--white);padding:4px 10px;text-transform:uppercase}
+.plan-name{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:16px}
+.plan-price{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);letter-spacing:2px;line-height:1;margin-bottom:4px}
+.plan-price sup{font-size:22px;vertical-align:top;margin-top:10px;display:inline-block}
+.plan-period{font-size:13px;color:var(--muted);margin-bottom:28px}
+.plan-feats{list-style:none;margin-bottom:32px}
+.plan-feats li{font-size:15px;color:var(--muted);padding:8px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start}
+.plan-feats li.on{color:var(--txt)}
+.plan-feats li::before{content:'—';font-size:10px;color:var(--border);flex-shrink:0;margin-top:3px}
+.plan-feats li.on::before{color:var(--red)}
+.plan-btn{width:100%;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:13px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.plan-btn:hover{border-color:var(--red);color:var(--red)}
+.plan.featured .plan-btn{background:var(--red);border-color:var(--red);color:var(--white)}
+.plan.featured .plan-btn:hover{background:var(--red2)}
+
+/* ABOUT */
+.about-wrap{padding:52px 48px;max-width:860px;margin:0 auto}
+.about-wrap h1{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);letter-spacing:2px;margin-bottom:8px;line-height:1}
+.about-wrap h1 em{font-style:normal;color:var(--red)}
+.about-body{font-size:17px;color:var(--txt);line-height:1.9;margin-top:36px}
+.about-body p{margin-bottom:18px}
+.about-body strong{color:var(--txt)}
+.stack-list{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:40px}
+.stack-item{padding:28px;border:1px solid var(--border)}
+.stack-item h4{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:10px}
+.stack-item p{font-size:15px;color:var(--txt);line-height:1.7}
+
+/* SERVICES */
+.services-wrap{padding:52px 48px}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:48px}
+.service-card{padding:40px;border:1px solid var(--border);transition:all .3s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.service-card:hover{background:var(--redglow)}
+.service-card:hover::before{transform:scaleX(1)}
+.service-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:16px}
+.service-card h3{font-size:20px;font-weight:500;color:var(--white);margin-bottom:12px}
+.service-card p{font-size:16px;color:var(--txt);line-height:1.7;margin-bottom:24px}
+.service-price{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--white);letter-spacing:1px}
+.service-price span{font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:300;color:var(--muted)}
+.soon-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;border:1px solid var(--red2);color:var(--red2);padding:3px 8px;text-transform:uppercase;margin-bottom:16px}
+
+/* BLOG */
+.blog-wrap{padding:52px 48px}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px}
+.blog-card{padding:32px;border:1px solid var(--border);cursor:pointer;transition:border-color .3s}
+.blog-card:hover{border-color:var(--red2)}
+.blog-meta{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+.blog-card h3{font-size:16px;font-weight:500;color:var(--white);margin-bottom:10px;line-height:1.45}
+.blog-card p{font-size:15px;color:var(--txt);line-height:1.65}
+.blog-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;border:1px solid var(--border);color:var(--muted);padding:2px 8px;margin-bottom:10px;text-transform:uppercase}
+#postModal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.82);backdrop-filter:blur(8px);overflow-y:auto;padding:80px 0}
+.post-inner{max-width:700px;margin:0 auto;background:var(--surface);border:1px solid var(--border);padding:52px;position:relative}
+
+/* CONTACTS */
+.contacts-wrap{padding:52px 48px;display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.contacts-info h1{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);letter-spacing:2px;margin-bottom:32px}
+.contact-row{display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--border)}
+.contact-row:last-child{border-bottom:none}
+.crLabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;min-width:88px;padding-top:2px}
+.crVal{font-size:15px;color:var(--txt)}
+.contacts-form{padding:40px;border:1px solid var(--border)}
+.contacts-form h2{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:28px}
+.form-success{text-align:center;padding:40px;display:none}
+.form-success .check{font-size:36px;margin-bottom:12px}
+.form-success p{font-size:15px;color:var(--muted)}
+
+/* AUTH MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);padding:44px;width:420px;position:relative}
+.modal-close{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer}
+.modal-close:hover{color:var(--red)}
+.modal h2{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--white);letter-spacing:2px;margin-bottom:4px}
+.modal-sub{font-size:14px;color:var(--muted);margin-bottom:24px}
+.modal-tabs{display:flex;margin-bottom:24px;border:1px solid var(--border)}
+.modal-tab{flex:1;padding:10px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;background:none;border:none;color:var(--muted);cursor:pointer;transition:all .2s}
+.modal-tab.active{background:var(--red);color:var(--white)}
+.modal-form{display:none}
+.modal-form.active{display:block}
+.modal-err{font-size:13px;color:var(--red);margin-bottom:12px;padding:10px 14px;border:1px solid var(--red2);background:rgba(191,48,48,.08);display:none}
+.modal-err.show{display:block}
+.modal-ok{font-size:13px;color:#4caf50;margin-bottom:12px;padding:10px 14px;border:1px solid #4caf50;background:rgba(76,175,80,.08);display:none}
+.modal-ok.show{display:block}
+
+/* CABINET */
+.cabinet-wrap{padding:52px 48px}
+.cabinet-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:44px}
+.cabinet-greeting h1{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--white);letter-spacing:2px}
+.cabinet-greeting p{font-size:14px;color:var(--muted);margin-top:4px}
+.cabinet-grid{display:grid;grid-template-columns:2fr 1fr;gap:2px}
+.cab-section{padding:32px;border:1px solid var(--border);margin-bottom:2px}
+.cab-section-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:20px}
+.doc-item{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--border);gap:16px}
+.doc-item:last-child{border-bottom:none}
+.doc-name{font-size:14px;color:var(--txt)}
+.doc-date{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);margin-top:3px}
+.doc-actions{display:flex;gap:8px;flex-shrink:0}
+.doc-btn{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:5px 10px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.doc-btn:hover{border-color:var(--red);color:var(--red)}
+.stat-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.stat-item:last-child{border-bottom:none}
+.stat-label{font-size:14px;color:var(--muted)}
+.stat-val{font-family:'Space Mono',monospace;font-size:12px;color:var(--txt)}
+.tariff-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;padding:4px 10px;border:1px solid var(--red);color:var(--red);text-transform:uppercase;margin-bottom:16px}
+.empty-state{text-align:center;padding:40px;font-size:14px;color:var(--muted);line-height:1.7}
+
+/* ═══ MOBILE BURGER ═══ */
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.burger span{display:block;width:22px;height:2px;background:var(--white);transition:all .3s}
+.mob-menu{display:none;position:fixed;inset:0;z-index:999;background:var(--bg);padding:100px 32px 40px;flex-direction:column;gap:4px}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:16px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:color .2s}
+.mob-menu a:hover{color:var(--red)}
+.mob-menu .mob-btns{display:flex;gap:10px;margin-top:24px}
+.mob-menu .mob-btns button{flex:1}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  nav{padding:14px 20px}
+  nav ul{display:none}
+  .nav-right{display:none}
+  .burger{display:flex}
+
+  .hero{padding:80px 20px 100px}
+  .hero-metrics{position:static;margin-top:48px;justify-content:flex-start;gap:32px;flex-wrap:wrap}
+  .metric-num{font-size:32px}
+
+  .features-strip{grid-template-columns:1fr 1fr}
+  .fs-item{border-right:none;border-bottom:1px solid var(--border)}
+  .fs-item:nth-child(odd){border-right:1px solid var(--border)}
+
+  .section{padding:52px 20px}
+  .steps-grid{grid-template-columns:1fr}
+  .cta-banner{flex-direction:column;padding:52px 20px;gap:28px}
+
+  .constructor-wrap{padding:32px 20px 60px}
+  .q-card{padding:24px 20px}
+
+  .plans-grid{grid-template-columns:1fr}
+
+  .services-grid{grid-template-columns:1fr}
+  .blog-grid{grid-template-columns:1fr}
+
+  .contacts-wrap{grid-template-columns:1fr;gap:28px;padding:32px 20px}
+
+  .cabinet-grid{grid-template-columns:1fr}
+
+  .about-wrap{padding:32px 20px}
+  .stack-list{grid-template-columns:1fr}
+
+  .pricing-wrap{padding:32px 20px}
+  .services-wrap{padding:32px 20px}
+  .blog-wrap{padding:32px 20px}
+
+  footer{padding:20px;flex-wrap:wrap;gap:8px}
+  footer p:last-child{display:none}
+
+  .hero-line{display:none}
+  .post-inner{padding:32px 20px;margin:0 16px}
+
+  .modal{width:calc(100vw - 32px);padding:32px 24px}
+  .result-box{padding:24px 20px}
+  .checklist-box{padding:20px}
+
+  .result-actions{flex-direction:column}
+  .result-actions .btn{width:100%;text-align:center}
+}
+
+@media(max-width:480px){
+  .features-strip{grid-template-columns:1fr}
+  .fs-item{border-right:none}
+}
+
+
+/* ═══ FAQ ═══ */
+.faq-item{border:1px solid var(--border);margin-bottom:2px;transition:border-color .3s}
+.faq-item:hover{border-color:var(--red2)}
+.faq-q{padding:20px 28px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:16px;color:var(--white)}
+.faq-q .faq-arrow{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--red);transition:transform .3s;flex-shrink:0;margin-left:16px}
+.faq-item.open .faq-arrow{transform:rotate(45deg)}
+.faq-a{display:none;padding:0 28px 20px;font-size:15px;color:var(--muted);line-height:1.75;border-top:1px solid var(--border)}
+.faq-item.open .faq-a{display:block}
+@media(max-width:768px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)!important}
+}
+/* ═══ PDF BUTTON ═══ */
+.btn-pdf{background:var(--surface);border:1px solid var(--red2);color:var(--red);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:14px 28px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-pdf:hover{background:var(--red);color:var(--white);border-color:var(--red)}
+.btn-pdf::before{content:'↓';font-size:14px}
+
+/* ═══ 404 PAGE ═══ */
+#page404{text-align:center;padding:140px 48px 80px;min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center}
+#page404.active{display:flex}
+.err-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(120px,20vw,240px);color:var(--border);letter-spacing:8px;line-height:1}
+.err-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,48px);color:var(--white);letter-spacing:2px;margin-bottom:16px}
+.err-sub{font-size:16px;color:var(--muted);margin-bottom:36px}
+
+
+
+/* ═══ STRONG DECORATIVE ELEMENTS ═══ */
+
+/* Hero canvas sits behind content */
+#heroCanvas{position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%}
+.hero>*:not(#heroCanvas):not(.glow-orb){position:relative;z-index:2}
+
+/* Glowing gradient orbs */
+.glow-orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(80px);z-index:1}
+.glow-orb-1{width:500px;height:500px;bottom:-120px;left:-100px;background:radial-gradient(circle,rgba(191,48,48,.18) 0%,transparent 65%);animation:orb-pulse 7s ease-in-out infinite}
+.glow-orb-2{width:300px;height:300px;top:10%;right:5%;background:radial-gradient(circle,rgba(191,48,48,.1) 0%,transparent 65%);animation:orb-pulse 9s ease-in-out infinite reverse}
+@keyframes orb-pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.2);opacity:1}}
+
+/* Diagonal stripes visible accent */
+.features-strip{position:relative;overflow:hidden}
+.features-strip::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(-45deg,transparent,transparent 20px,rgba(191,48,48,.04) 20px,rgba(191,48,48,.04) 21px);
+}
+
+/* Corner brackets on ALL cards — visible */
+.step,.service-card,.blog-card,.plan,.cab-section,.q-card,.result-box{position:relative}
+.step::before,.service-card::before,.blog-card::before,.plan::before{
+  content:'';position:absolute;top:10px;left:10px;
+  width:18px;height:18px;
+  border-top:2px solid rgba(191,48,48,.3);
+  border-left:2px solid rgba(191,48,48,.3);
+  pointer-events:none;transition:border-color .3s;
+}
+.step::after,.service-card::after,.blog-card::after,.plan::after{
+  content:'';position:absolute;bottom:10px;right:10px;
+  width:18px;height:18px;
+  border-bottom:2px solid rgba(191,48,48,.3);
+  border-right:2px solid rgba(191,48,48,.3);
+  pointer-events:none;transition:border-color .3s;
+}
+.step:hover::before,.service-card:hover::before,.blog-card:hover::before,.plan:hover::before,
+.step:hover::after,.service-card:hover::after,.blog-card:hover::after,.plan:hover::after{
+  border-color:rgba(191,48,48,.7);
+}
+/* plan.featured gets bright corners */
+.plan.featured::before,.plan.featured::after{border-color:rgba(191,48,48,.6)}
+
+/* Red glow on featured plan */
+.plan.featured{box-shadow:0 0 40px rgba(191,48,48,.12),inset 0 0 40px rgba(191,48,48,.03)}
+
+/* Section title brackets — visible */
+.sec-title::before{content:'[ ';color:rgba(191,48,48,.35);font-family:'Space Mono',monospace;font-size:.55em;vertical-align:middle}
+.sec-title::after{content:' ]';color:rgba(191,48,48,.35);font-family:'Space Mono',monospace;font-size:.55em;vertical-align:middle}
+
+/* CTA banner — diagonal light sweep */
+.cta-banner{position:relative;overflow:hidden}
+.cta-banner::before{
+  content:'';position:absolute;top:-50%;left:-80%;width:60%;height:200%;
+  background:linear-gradient(105deg,transparent 40%,rgba(191,48,48,.06) 50%,transparent 60%);
+  animation:sweep 8s ease-in-out infinite;pointer-events:none;
+}
+@keyframes sweep{0%{left:-80%}100%{left:120%}}
+
+/* Hero metrics separator */
+.hero-metrics{border-top:1px solid var(--border);padding-top:32px}
+.hero-metrics>div{padding-right:40px;border-right:1px solid var(--border)}
+.hero-metrics>div:last-child{border-right:none}
+
+/* Scanline effect on constructor */
+#constructor .constructor-wrap::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent 0%,var(--red) 50%,transparent 100%);
+  animation:hscan 5s ease-in-out infinite;opacity:.5;pointer-events:none;
+}
+@keyframes hscan{0%,100%{top:0%;opacity:0}50%{top:100%;opacity:.6}}
+
+/* Pricing page — radar circle bg */
+.pricing-wrap::after{
+  content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;
+  border-radius:50%;
+  background:conic-gradient(from 0deg,transparent 0deg,rgba(191,48,48,.06) 60deg,transparent 60deg);
+  animation:radar 8s linear infinite;pointer-events:none;z-index:0;
+}
+@keyframes radar{to{transform:rotate(360deg)}}
+.pricing-wrap{position:relative;overflow:hidden}
+.plans-grid{position:relative;z-index:1}
+
+/* About — grid background */
+.about-wrap::after{
+  content:'';position:absolute;top:0;right:-20px;width:260px;height:260px;
+  background-image:
+    linear-gradient(rgba(191,48,48,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(191,48,48,.08) 1px,transparent 1px);
+  background-size:24px 24px;
+  mask-image:radial-gradient(circle at 70% 30%,black 0%,transparent 70%);
+  -webkit-mask-image:radial-gradient(circle at 70% 30%,black 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+.about-wrap{position:relative;overflow:hidden}
+.about-body,.stack-list,.about-wrap h1{position:relative;z-index:1}
+
+/* Blog page — subtle horizontal lines */
+.blog-wrap{position:relative;overflow:hidden}
+.blog-wrap::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(191,48,48,.03) 60px,rgba(191,48,48,.03) 61px);
+  pointer-events:none;
+}
+
+/* Contacts — waveform decoration */
+.contacts-wrap{position:relative;overflow:hidden}
+.contacts-wrap::after{
+  content:'';position:absolute;bottom:0;right:0;width:300px;height:160px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 160'%3E%3Cpolyline points='0,80 30,40 60,100 90,20 120,110 150,50 180,90 210,30 240,70 270,45 300,80' stroke='rgba(191,48,48,0.2)' stroke-width='1.5' fill='none'/%3E%3Cpolyline points='0,100 30,65 60,115 90,45 120,125 150,70 180,105 210,55 240,90 270,65 300,95' stroke='rgba(191,48,48,0.1)' stroke-width='1' fill='none' stroke-dasharray='5 8'/%3E%3C/svg%3E") no-repeat bottom right;
+  pointer-events:none;
+}
+
+/* Service cards — glowing bottom line */
+.service-card::before{display:none}
+.service-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent,var(--red),transparent);
+  transform:scaleX(0);transform-origin:center;transition:transform .4s;
+  pointer-events:none;border:none;width:auto;height:2px;top:auto;right:0;bottom:0;left:0;
+}
+.service-card:hover::after{transform:scaleX(1)}
+.service-card:hover{background:var(--redglow)}
+
+/* Red dot accent on feature icons */
+.fs-icon{position:relative;display:inline-block}
+.fs-icon::after{
+  content:'';position:absolute;top:-3px;right:-3px;
+  width:6px;height:6px;border-radius:50%;
+  background:var(--red);opacity:.7;
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo" onclick="nav('home')">Screw<span>Sec</span></div>
+  <ul>
+    <li><a onclick="nav('home')" data-page="home">Главная</a></li>
+    <li><a onclick="nav('constructor')" data-page="constructor">Конструктор</a></li>
+    <li><a onclick="nav('services')" data-page="services">Услуги</a></li>
+    <li><a onclick="nav('pricing')" data-page="pricing">Тарифы</a></li>
+    <li><a onclick="nav('blog')" data-page="blog">Блог</a></li>
+    <li><a onclick="nav('about')" data-page="about">О проекте</a></li>
+    <li><a onclick="nav('contacts')" data-page="contacts">Контакты</a></li>
+  </ul>
+  <div class="nav-right" id="navRight">
+    <button class="btn-sm" onclick="openAuth('login')">Войти</button>
+    <button class="btn-sm primary" onclick="openAuth('register')">Регистрация</button>
+  </div>
+  <div class="burger" id="burger" onclick="toggleMob()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <a onclick="mobNav('home')">Главная</a>
+  <a onclick="mobNav('constructor')">Конструктор</a>
+  <a onclick="mobNav('services')">Услуги</a>
+  <a onclick="mobNav('pricing')">Тарифы</a>
+  <a onclick="mobNav('blog')">Блог</a>
+  <a onclick="mobNav('about')">О проекте</a>
+  <a onclick="mobNav('contacts')">Контакты</a>
+  <div class="mob-btns" id="mobBtns">
+    <button class="btn-sm" onclick="openAuth('login');closeMob()">Войти</button>
+    <button class="btn-sm primary" onclick="openAuth('register');closeMob()">Регистрация</button>
+  </div>
+</div>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="hero">
+    <canvas id="heroCanvas"></canvas>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="hero-line"></div>
+    <p class="tag">// Конструктор политики ИБ для бизнеса</p>
+    <h1>ЗАЩИТА<br><em>БЕЗ ЛИШНИХ</em><br>СЛОВ.</h1>
+    <p class="hero-sub">Ответьте на вопросы — получите готовую политику информационной безопасности, чеклист и рекомендации для вашей компании.</p>
+    <div class="hero-cta">
+      <button class="btn btn-red" onclick="nav('constructor')">Создать политику ИБ</button>
+      <button class="btn btn-outline" onclick="nav('about')">Как это работает →</button>
+    </div>
+    <div class="hero-metrics">
+      <div><div class="metric-num">12<span>+</span></div><div class="metric-lbl">Отраслей</div></div>
+      <div><div class="metric-num">300<span>+</span></div><div class="metric-lbl">Пунктов политики</div></div>
+      <div><div class="metric-num">98<span>%</span></div><div class="metric-lbl">ГОСТ совместимость</div></div>
+    </div>
+  </div>
+  <div class="features-strip">
+    <div class="fs-item"><div class="fs-icon">⬡</div><h3>Конструктор политики</h3><p>Опросник адаптирует документ под вашу отрасль, размер компании и текущий уровень защиты.</p></div>
+    <div class="fs-item"><div class="fs-icon">☐</div><h3>Готовый чеклист</h3><p>Конкретные шаги внедрения с расстановкой приоритетов — не просто документ, а план действий.</p></div>
+    <div class="fs-item"><div class="fs-icon">◈</div><h3>ГОСТ / 152-ФЗ</h3><p>Соответствие российским нормативным требованиям: ГОСТ Р 57580, 152-ФЗ, ISO 27001.</p></div>
+    <div class="fs-item"><div class="fs-icon">→</div><h3>Услуги ИБ</h3><p>Аудит, пентест и консалтинг от специалистов — для тех, кому нужно больше, чем документ.</p></div>
+  </div>
+  <div class="section" style="background:var(--surface)">
+    <p class="sec-label">// Процесс</p>
+    <h2 class="sec-title">КАК ЭТО РАБОТАЕТ</h2>
+    <div class="steps-grid">
+      <div class="step"><div class="step-n">01</div><h3>Ответьте на вопросы</h3><p>Опросник по структуре компании, активам и текущим мерам защиты. Занимает 10–15 минут, вопросы на обычном языке без технического жаргона.</p></div>
+      <div class="step"><div class="step-n">02</div><h3>AI генерирует документ</h3><p>На основе ваших ответов создаётся персонализированная политика ИБ, адаптированная под вашу отрасль и требования регуляторов.</p></div>
+      <div class="step"><div class="step-n">03</div><h3>Получите результат</h3><p>Готовая политика ИБ сохраняется в личном кабинете. Скачайте в PDF или DOCX и передайте клиенту, регулятору или аудитору.</p></div>
+    </div>
+  </div>
+  <!-- STATS -->
+  <div style="border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);text-align:center;background:var(--surface)">
+    <div style="padding:44px 20px;border-right:1px solid var(--border)">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);letter-spacing:2px;line-height:1">80<span style="color:var(--red)">%</span></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:10px">МСП без политики ИБ</div>
+    </div>
+    <div style="padding:44px 20px;border-right:1px solid var(--border)">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);letter-spacing:2px;line-height:1">500<span style="color:var(--red)">млн</span></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:10px">Макс. штраф за утечку</div>
+    </div>
+    <div style="padding:44px 20px;border-right:1px solid var(--border)">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);letter-spacing:2px;line-height:1">15<span style="color:var(--red)">мин</span></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:10px">На создание документа</div>
+    </div>
+    <div style="padding:44px 20px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);letter-spacing:2px;line-height:1">30<span style="color:var(--red)">×</span></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:10px">Дешевле консультанта</div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <p class="sec-label">// Вопросы</p>
+    <h2 class="sec-title">ЧАСТЫЕ ВОПРОСЫ</h2>
+    <div id="faqList"></div>
+  </div>
+
+  <div class="cta-banner">
+    <h2>ГОТОВЫ<br>НАЧАТЬ?<br><em>БЕСПЛАТНО.</em></h2>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <button class="btn btn-red" style="font-size:12px;padding:16px 52px" onclick="nav('constructor')">Создать политику ИБ</button>
+      <button class="btn btn-outline" onclick="nav('pricing')">Посмотреть тарифы →</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Screw<span>Sec</span></div><p>© 2026 ScrewSec</p><p>B2B · КИБЕРБЕЗОПАСНОСТЬ</p></footer>
+</div>
+
+<!-- CONSTRUCTOR -->
+<div id="constructor" class="page">
+  <div class="constructor-wrap">
+    <div id="constructorStart">
+      <div style="display:flex;gap:6px;margin-bottom:20px">
+    <span style="width:10px;height:10px;border-radius:50%;background:#bf3030;opacity:.7;display:inline-block"></span>
+    <span style="width:10px;height:10px;border-radius:50%;background:#8a1f1f;opacity:.5;display:inline-block"></span>
+    <span style="width:10px;height:10px;border-radius:50%;background:#2a1a1a;display:inline-block;border:1px solid #3a2a2a"></span>
+  </div>
+  <h1>КОНСТРУКТОР ПОЛИТИКИ ИБ</h1>
+      <p class="subtitle">Ответьте на 13 вопросов — получите персонализированную политику ИБ</p>
+
+      <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+      <div class="prog-meta"><span id="progLabel">Шаг 1 из 8</span><span id="progPct">0%</span></div>
+      <div id="qCard" class="q-card"></div>
+      <div class="q-nav">
+        <button class="btn btn-outline" onclick="prevQ()" id="btnBack" style="display:none">← Назад</button>
+        <button class="btn btn-red" onclick="nextQ()" id="btnNext">Далее →</button>
+      </div>
+    </div>
+    <div id="constructorResult" style="display:none">
+      <h1>РЕЗУЛЬТАТ</h1>
+      <p class="subtitle">Политика ИБ сгенерирована на основе ваших ответов</p>
+      <div id="resultLoading" class="result-loading">
+        <div class="spin"></div>
+        <p>Генерирую политику ИБ...</p>
+      </div>
+      <div id="resultDone" style="display:none">
+        <div class="result-box">
+          <div class="result-label">ПОЛИТИКА ИНФОРМАЦИОННОЙ БЕЗОПАСНОСТИ</div>
+          <div class="result-content" id="resultText"></div>
+        </div>
+        <div id="checklistBox" class="checklist-box" style="display:none">
+          <h3>Чеклист внедрения</h3>
+          <div id="checklistItems"></div>
+        </div>
+        <div class="result-actions">
+          <button class="btn btn-red" onclick="copyResult()">Скопировать текст</button>
+          <button class="btn-pdf" onclick="downloadPDF()">Скачать PDF</button>
+          <button class="btn btn-outline" onclick="resetConstructor()">← Начать заново</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div id="pricing" class="page">
+  <div class="pricing-wrap" style="position:relative">
+  <svg style="position:absolute;top:0;right:0;opacity:.04;pointer-events:none" width="340" height="340" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="170" cy="170" r="140" stroke="#bf3030" stroke-width="1"/>
+    <circle cx="170" cy="170" r="100" stroke="#bf3030" stroke-width="1"/>
+    <circle cx="170" cy="170" r="60" stroke="#bf3030" stroke-width="1"/>
+    <line x1="30" y1="170" x2="310" y2="170" stroke="#bf3030" stroke-width="1"/>
+    <line x1="170" y1="30" x2="170" y2="310" stroke="#bf3030" stroke-width="1"/>
+    <line x1="71" y1="71" x2="269" y2="269" stroke="#bf3030" stroke-width="1"/>
+    <line x1="269" y1="71" x2="71" y2="269" stroke="#bf3030" stroke-width="1"/>
+  </svg>
+    <p class="sec-label">// Тарифы</p>
+    <h2 class="sec-title">ТАРИФНЫЕ ПЛАНЫ</h2>
+    <div class="plans-grid">
+      <div class="plan">
+        <p class="plan-name">Старт</p>
+        <div class="plan-price"><sup>₽</sup>0</div>
+        <p class="plan-period">навсегда бесплатно</p>
+        <ul class="plan-feats">
+          <li class="on">Полный опросник</li>
+          <li class="on">Генерация через AI</li>
+          <li class="on">Просмотр результата</li>
+          <li>Скачать PDF / DOCX</li>
+          <li>История документов</li>
+          <li>Поддержка</li>
+        </ul>
+        <button class="plan-btn" onclick="openAuth('register')">Начать бесплатно</button>
+      </div>
+      <div class="plan featured">
+        <div class="plan-badge">Popular</div>
+        <p class="plan-name">Бизнес</p>
+        <div class="plan-price"><sup>₽</sup>4 900</div>
+        <p class="plan-period">в месяц</p>
+        <ul class="plan-feats">
+          <li class="on">Полный опросник</li>
+          <li class="on">Генерация через AI</li>
+          <li class="on">Просмотр результата</li>
+          <li class="on">Скачать PDF / DOCX</li>
+          <li class="on">История документов</li>
+          <li>Поддержка</li>
+        </ul>
+        <button class="plan-btn" onclick="openAuth('register')">Выбрать план</button>
+      </div>
+      <div class="plan">
+        <p class="plan-name">Корпоратив</p>
+        <div class="plan-price" style="font-size:32px;line-height:1.5">Индивидуально</div>
+        <p class="plan-period">под ваш запрос</p>
+        <ul class="plan-feats">
+          <li class="on">Всё из Бизнес</li>
+          <li class="on">Аудит ИБ</li>
+          <li class="on">Пентест</li>
+          <li class="on">Консалтинг</li>
+          <li class="on">SLA поддержка</li>
+          <li class="on">Интеграция в процессы</li>
+        </ul>
+        <button class="plan-btn" onclick="nav('contacts')">Связаться с нами</button>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Screw<span>Sec</span></div><p>© 2026 ScrewSec</p><p>B2B · КИБЕРБЕЗОПАСНОСТЬ</p></footer>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="page">
+  <div class="about-wrap" style="position:relative">
+  <svg style="position:absolute;top:40px;right:0;opacity:.06;pointer-events:none" width="200" height="200" viewBox="0 0 200 200" fill="none">
+    <defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#bf3030" stroke-width="0.5"/></pattern></defs>
+    <rect width="200" height="200" fill="url(%23grid)"/>
+    <rect x="60" y="60" width="80" height="80" fill="none" stroke="#bf3030" stroke-width="1"/>
+    <rect x="80" y="80" width="40" height="40" fill="rgba(191,48,48,0.15)"/>
+  </svg>
+    <p class="sec-label">// О проекте</p>
+    <h1>О ПРОЕКТЕ<br><em>SCREWSEC</em></h1>
+    <div class="about-body">
+      <p>ScrewSec — инструмент для малого и среднего бизнеса, которому нужна политика информационной безопасности. Не через консультанта за 150 000 рублей и не через шаблон из интернета, который всё равно не подходит.</p>
+      <p>Пользователь отвечает на вопросы об устройстве компании, активах и текущих мерах защиты. AI генерирует документ, который соответствует требованиям <strong>ГОСТ Р 57580.1-2017</strong>, <strong>152-ФЗ</strong> и <strong>ISO/IEC 27001</strong> и написан понятным языком — не скопирован из ГОСТа.</p>
+      <p>В результате — готовая политика ИБ и чеклист с конкретными шагами внедрения. Документ, который можно показать партнёру, регулятору или аудитору.</p>
+      <p>В будущем ScrewSec также будет предоставлять услуги: аудит информационной безопасности, пентест и консалтинг.</p>
+    </div>
+    <div class="stack-list">
+      <div class="stack-item"><h4>Для кого</h4><p>Малый и средний бизнес, IT-директора, руководители, системные администраторы без выделенного ИБ-специалиста.</p></div>
+      <div class="stack-item"><h4>Нормативы</h4><p>ГОСТ Р 57580.1-2017, 152-ФЗ, ISO/IEC 27001, PCI DSS — документ адаптируется под нужные стандарты.</p></div>
+      <div class="stack-item"><h4>Технологии</h4><p>AI-генерация на базе Claude API (Anthropic), экспорт в PDF и DOCX, личный кабинет с историей документов.</p></div>
+      <div class="stack-item"><h4>Статус</h4><p>MVP в разработке. Открытое бета-тестирование — Q3 2025. Написать: boburovtd25@st.ithub.ru</p></div>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Screw<span>Sec</span></div><p>© 2026 ScrewSec</p><p>B2B · КИБЕРБЕЗОПАСНОСТЬ</p></footer>
+</div>
+
+<!-- SERVICES -->
+<div id="services" class="page">
+  <div class="services-wrap">
+    <p class="sec-label">// Услуги</p>
+    <h2 class="sec-title">УСЛУГИ<br>КИБЕРБЕЗОПАСНОСТИ</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-tag">Основное</div>
+        <h3>Конструктор политики ИБ</h3>
+        <p>Автоматическая генерация политики информационной безопасности через AI. Соответствие 152-ФЗ, ГОСТ Р 57580 и ISO 27001. Результат за 15 минут.</p>
+        <div class="service-price">от 0 ₽ <span>/ документ</span></div>
+        <div style="margin-top:20px"><button class="btn btn-red" onclick="nav('constructor')">Попробовать</button></div>
+      </div>
+      <div class="service-card">
+        <div class="soon-badge">Скоро</div>
+        <h3>Аудит информационной безопасности</h3>
+        <p>Оценка текущего состояния ИБ: анализ инфраструктуры, процессов и документации. Отчёт с конкретными рекомендациями по устранению уязвимостей.</p>
+        <div class="service-price">от 80 000 ₽ <span>/ проект</span></div>
+        <div style="margin-top:20px"><button class="btn btn-outline" onclick="nav('contacts')">Оставить заявку</button></div>
+      </div>
+      <div class="service-card">
+        <div class="soon-badge">Скоро</div>
+        <h3>Пентест (тест на проникновение)</h3>
+        <p>Контролируемая проверка защищённости инфраструктуры, веб-приложений и внутренней сети. Детальный отчёт с найденными уязвимостями.</p>
+        <div class="service-price">от 150 000 ₽ <span>/ проект</span></div>
+        <div style="margin-top:20px"><button class="btn btn-outline" onclick="nav('contacts')">Оставить заявку</button></div>
+      </div>
+      <div class="service-card">
+        <div class="soon-badge">Скоро</div>
+        <h3>Консалтинг по ИБ</h3>
+        <p>Помощь в построении системы информационной безопасности с нуля: от оценки рисков до внедрения технических и организационных мер защиты.</p>
+        <div class="service-price">от 5 000 ₽ <span>/ час</span></div>
+        <div style="margin-top:20px"><button class="btn btn-outline" onclick="nav('contacts')">Оставить заявку</button></div>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Screw<span>Sec</span></div><p>© 2026 ScrewSec</p><p>B2B · КИБЕРБЕЗОПАСНОСТЬ</p></footer>
+</div>
+
+<!-- BLOG -->
+<div id="blog" class="page">
+  <div class="blog-wrap">
+    <p class="sec-label">// Блог</p>
+    <h2 class="sec-title">СТАТЬИ</h2>
+    <div class="blog-grid">
+      <div class="blog-card" onclick="openPost(0)"><div class="blog-tag">152-ФЗ</div><div class="blog-meta">12 мая 2025 · 5 мин</div><h3>Что будет, если у компании нет политики ИБ</h3><p>Штрафы, прецеденты и что именно проверяет Роскомнадзор при плановых проверках.</p></div>
+      <div class="blog-card" onclick="openPost(1)"><div class="blog-tag">ГОСТ</div><div class="blog-meta">28 апр 2025 · 7 мин</div><h3>ГОСТ Р 57580.1-2017: что реально нужно знать малому бизнесу</h3><p>Большинство требований написано для банков. Что из этого применимо к обычным компаниям.</p></div>
+      <div class="blog-card" onclick="openPost(2)"><div class="blog-tag">Практика</div><div class="blog-meta">15 апр 2025 · 4 мин</div><h3>Почему шаблон политики ИБ из интернета не работает</h3><p>Три причины, по которым универсальный шаблон не закроет ваши риски и не пройдёт аудит.</p></div>
+      <div class="blog-card" onclick="openPost(3)"><div class="blog-tag">Безопасность</div><div class="blog-meta">3 апр 2025 · 6 мин</div><h3>Топ-5 ошибок в политиках ИБ, которые мы видим у клиентов</h3><p>Разделы без конкретики, устаревшие требования и документы, которые никто не исполняет.</p></div>
+      <div class="blog-card" onclick="openPost(4)"><div class="blog-tag">Персданные</div><div class="blog-meta">20 мар 2025 · 5 мин</div><h3>152-ФЗ в 2025 году: новые штрафы и что изменилось</h3><p>С 30 мая 2025 года вступают оборотные штрафы за утечки персональных данных.</p></div>
+      <div class="blog-card" onclick="openPost(5)"><div class="blog-tag">Аудит</div><div class="blog-meta">10 мар 2025 · 8 мин</div><h3>Как подготовиться к проверке РКН: чеклист из 12 пунктов</h3><p>Что проверяют, какие документы запрашивают и как не получить предписание.</p></div>
+    </div>
+  </div>
+  <div id="postModal">
+    <div class="post-inner">
+      <button onclick="closePost()" style="position:absolute;top:16px;right:20px;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1">✕</button>
+      <div id="postContent"></div>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Screw<span>Sec</span></div><p>© 2026 ScrewSec</p><p>B2B · КИБЕРБЕЗОПАСНОСТЬ</p></footer>
+</div>
+
+<!-- CONTACTS -->
+<div id="contacts" class="page">
+  <div class="contacts-wrap" style="position:relative">
+  <svg style="position:absolute;bottom:0;right:0;opacity:.05;pointer-events:none" width="280" height="200" viewBox="0 0 280 200" fill="none">
+    <polyline points="0,200 40,160 80,180 120,100 160,130 200,60 240,90 280,20" stroke="#bf3030" stroke-width="1.5" fill="none"/>
+    <polyline points="0,200 40,175 80,190 120,130 160,155 200,100 240,120 280,70" stroke="#bf3030" stroke-width="1" fill="none" stroke-dasharray="4 6"/>
+  </svg>
+    <div class="contacts-info">
+      <p class="sec-label" style="margin-bottom:12px">// Контакты</p>
+      <h1>СВЯЖИТЕСЬ С НАМИ</h1>
+      <div class="contact-row"><div class="crLabel">Email</div><div class="crVal">boburovtd25@st.ithub.ru</div></div>
+      <div class="contact-row"><div class="crLabel">Telegram</div><div class="crVal">@becarefulx</div></div>
+      <div class="contact-row"><div class="crLabel">Режим</div><div class="crVal">Пн–Пт, 9:00–18:00 МСК</div></div>
+      <div class="contact-row"><div class="crLabel">Ответ</div><div class="crVal">В течение 1 рабочего дня</div></div>
+    </div>
+    <div class="contacts-form">
+      <h2>Оставить заявку</h2>
+      <div id="contactFields">
+        <div class="form-field"><label>Имя</label><input type="text" id="cName" placeholder="Иван Иванов"></div>
+        <div class="form-field"><label>Email</label><input type="email" id="cEmail" placeholder="ivan@company.ru"></div>
+        <div class="form-field"><label>Тема</label>
+          <select id="cTopic">
+            <option value="">Выберите тему</option>
+            <option>Конструктор политики ИБ</option>
+            <option>Аудит ИБ</option><option>Пентест</option>
+            <option>Консалтинг</option><option>Корпоративный тариф</option><option>Другое</option>
+          </select>
+        </div>
+        <div class="form-field"><label>Сообщение</label><textarea id="cMsg" placeholder="Опишите ваш запрос..."></textarea></div>
+        <button class="btn btn-red" style="width:100%" onclick="sendContact()">Отправить</button>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <div class="check">✓</div>
+        <p>Заявка отправлена.<br>Ответим в течение рабочего дня.</p>
+      </div>
+    </div>
+  </div>
+  <footer style="margin-top:40px"><div class="footer-logo">Screw<span>Sec</span></div><p>© 2026 ScrewSec</p><p>B2B · КИБЕРБЕЗОПАСНОСТЬ</p></footer>
+</div>
+
+<!-- CABINET -->
+<div id="cabinet" class="page">
+  <div class="cabinet-wrap">
+    <div class="cabinet-header">
+      <div class="cabinet-greeting">
+        <h1 id="cabName">Личный кабинет</h1>
+        <p id="cabEmail"></p>
+      </div>
+      <button class="btn btn-outline" onclick="logout()">Выйти</button>
+    </div>
+    <div class="cabinet-grid">
+      <div>
+        <div class="cab-section">
+          <div class="cab-section-title">Мои документы</div>
+          <div id="cabDocs"><div class="empty-state">Документов пока нет.<br>Создайте первую политику ИБ в конструкторе.</div></div>
+          <div style="margin-top:20px"><button class="btn btn-red" onclick="nav('constructor')">Создать документ</button></div>
+        </div>
+      </div>
+      <div>
+        <div class="cab-section">
+          <div class="cab-section-title">Аккаунт</div>
+          <div class="tariff-badge" id="cabTariff">Старт</div>
+          <div class="stat-item"><div class="stat-label">Документов создано</div><div class="stat-val" id="statDocs">0</div></div>
+          <div class="stat-item"><div class="stat-label">Дата регистрации</div><div class="stat-val" id="statDate">—</div></div>
+          <div style="margin-top:20px"><button class="btn btn-outline" style="width:100%" onclick="nav('pricing')">Улучшить тариф →</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Screw<span>Sec</span></div><p>© 2026 ScrewSec</p><p>B2B · КИБЕРБЕЗОПАСНОСТЬ</p></footer>
+</div>
+
+
+<!-- 404 PAGE -->
+<div id="page404" class="page">
+  <div class="err-num">404</div>
+  <div class="err-title">СТРАНИЦА НЕ НАЙДЕНА</div>
+  <p class="err-sub">Такой страницы не существует или она была удалена</p>
+  <button class="btn btn-red" onclick="nav('home')">На главную</button>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAuth()">✕</button>
+    <h2>SCREWSEC</h2>
+    <p class="modal-sub">Аккаунт нужен для сохранения документов</p>
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tabLogin" onclick="switchTab('login')">Войти</button>
+      <button class="modal-tab" id="tabReg" onclick="switchTab('register')">Регистрация</button>
+    </div>
+    <div class="modal-form active" id="formLogin">
+      <div class="modal-err" id="loginErr"></div>
+      <div class="form-field"><label>Email</label><input type="email" id="lEmail" placeholder="ivan@company.ru"></div>
+      <div class="form-field"><label>Пароль</label><input type="password" id="lPass" placeholder="••••••••"></div>
+      <button class="btn btn-red" style="width:100%;margin-top:4px" onclick="doLogin()">Войти</button>
+    </div>
+    <div class="modal-form" id="formReg">
+      <div class="modal-err" id="regErr"></div>
+      <div class="modal-ok" id="regOk">Аккаунт создан! Выполняю вход...</div>
+      <div class="form-field"><label>Имя</label><input type="text" id="rName" placeholder="Иван Иванов"></div>
+      <div class="form-field"><label>Email</label><input type="email" id="rEmail" placeholder="ivan@company.ru"></div>
+      <div class="form-field"><label>Пароль <span style="color:var(--muted);font-size:10px">(минимум 6 символов)</span></label><input type="password" id="rPass" placeholder="••••••••"></div>
+      <button class="btn btn-red" style="width:100%;margin-top:4px" onclick="doRegister()">Создать аккаунт</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function nav(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(page).classList.add('active');
+  document.querySelectorAll('nav ul li a').forEach(a=>a.classList.toggle('active',a.dataset.page===page));
+  window.scrollTo(0,0);
+}
+
+// STORAGE
+function getUsers(){try{return JSON.parse(localStorage.getItem('ss_users')||'[]')}catch(e){return[]}}
+function saveUsers(u){localStorage.setItem('ss_users',JSON.stringify(u))}
+function getCurrentUser(){try{return JSON.parse(localStorage.getItem('ss_current')||'null')}catch(e){return null}}
+function setCurrentUser(u){localStorage.setItem('ss_current',JSON.stringify(u))}
+function syncUser(u){const us=getUsers();const i=us.findIndex(x=>x.email===u.email);if(i>=0){us[i]=u;saveUsers(us)}setCurrentUser(u)}
+
+// AUTH
+function openAuth(tab){document.getElementById('authModal').classList.add('open');switchTab(tab)}
+function closeAuth(){document.getElementById('authModal').classList.remove('open')}
+function switchTab(t){
+  document.getElementById('tabLogin').classList.toggle('active',t==='login');
+  document.getElementById('tabReg').classList.toggle('active',t==='register');
+  document.getElementById('formLogin').classList.toggle('active',t==='login');
+  document.getElementById('formReg').classList.toggle('active',t==='register');
+  ['loginErr','regErr','regOk'].forEach(id=>{const el=document.getElementById(id);el.classList.remove('show');el.textContent=''});
+}
+function showErr(id,msg){const el=document.getElementById(id);el.textContent=msg;el.classList.add('show')}
+
+function doLogin(){
+  const email=document.getElementById('lEmail').value.trim().toLowerCase();
+  const pass=document.getElementById('lPass').value;
+  document.getElementById('loginErr').classList.remove('show');
+  if(!email||!pass){showErr('loginErr','Заполните все поля');return}
+  const u=getUsers().find(x=>x.email===email&&x.pass===pass);
+  if(!u){showErr('loginErr','Неверный email или пароль');return}
+  setCurrentUser(u);closeAuth();updateNavForUser(u);nav('cabinet');loadCabinet(u);
+}
+
+function doRegister(){
+  const name=document.getElementById('rName').value.trim();
+  const email=document.getElementById('rEmail').value.trim().toLowerCase();
+  const pass=document.getElementById('rPass').value;
+  document.getElementById('regErr').classList.remove('show');
+  document.getElementById('regOk').classList.remove('show');
+  if(!name){showErr('regErr','Введите имя');return}
+  if(!email||!email.includes('@')){showErr('regErr','Введите корректный email');return}
+  if(pass.length<6){showErr('regErr','Пароль — минимум 6 символов');return}
+  const users=getUsers();
+  if(users.find(x=>x.email===email)){showErr('regErr','Этот email уже зарегистрирован');return}
+  const u={name,email,pass,tariff:'Старт',docs:[],registered:new Date().toLocaleDateString('ru')};
+  users.push(u);saveUsers(users);setCurrentUser(u);
+  document.getElementById('regOk').classList.add('show');
+  setTimeout(()=>{closeAuth();updateNavForUser(u);nav('cabinet');loadCabinet(u)},1200);
+}
+
+function logout(){
+  localStorage.removeItem('ss_current');
+  document.getElementById('navRight').innerHTML='<button class="btn-sm" onclick="openAuth(\'login\')">Войти</button><button class="btn-sm primary" onclick="openAuth(\'register\')">Регистрация</button>';
+  nav('home');
+}
+
+function updateNavForUser(u){
+  document.getElementById('navRight').innerHTML=
+    `<span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted)">${u.name}</span>`+
+    `<button class="btn-sm primary" onclick="nav('cabinet')">Кабинет</button>`;
+}
+
+function loadCabinet(u){
+  document.getElementById('cabName').textContent='Привет, '+u.name;
+  document.getElementById('cabEmail').textContent=u.email;
+  document.getElementById('cabTariff').textContent=u.tariff||'Старт';
+  document.getElementById('statDate').textContent=u.registered||'—';
+  const docs=u.docs||[];
+  document.getElementById('statDocs').textContent=docs.length;
+  const box=document.getElementById('cabDocs');
+  if(docs.length===0){box.innerHTML='<div class="empty-state">Документов пока нет.<br>Создайте первую политику ИБ в конструкторе.</div>';return}
+  box.innerHTML=docs.map((d,i)=>`
+    <div class="doc-item">
+      <div><div class="doc-name">${d.name}</div><div class="doc-date">${d.date}</div></div>
+      <div class="doc-actions">
+        <button class="doc-btn" onclick="viewSavedDoc(${i})">Открыть</button>
+        <button class="doc-btn" onclick="deleteDoc(${i})">Удалить</button>
+      </div>
+    </div>`).join('');
+}
+
+function viewSavedDoc(i){
+  const u=getCurrentUser();if(!u||!u.docs[i])return;
+  document.getElementById('constructorStart').style.display='none';
+  document.getElementById('constructorResult').style.display='block';
+  document.getElementById('resultLoading').classList.remove('show');
+  document.getElementById('resultDone').style.display='block';
+  document.getElementById('resultText').textContent=u.docs[i].content;
+  buildChecklist('','');nav('constructor');
+}
+
+function deleteDoc(i){
+  const u=getCurrentUser();if(!u)return;
+  if(!confirm('Удалить документ?'))return;
+  u.docs.splice(i,1);syncUser(u);loadCabinet(u);
+}
+
+function saveDocToUser(name,content){
+  const u=getCurrentUser();if(!u)return;
+  u.docs=u.docs||[];
+  u.docs.unshift({name,content,date:new Date().toLocaleDateString('ru')});
+  syncUser(u);loadCabinet(u);
+}
+
+// CONSTRUCTOR
+const questions=[
+  {q:'Выберите отрасль вашей компании',type:'choice',hint:'Это определяет специфику требований в вашем документе',opts:['IT / Разработка / SaaS','Финансы / Банки / Финтех','Медицина / Здравоохранение','Торговля / E-commerce','Производство / Промышленность','Юридические / Консалтинговые услуги','Другое']},
+  {q:'Сколько сотрудников в компании?',type:'choice',hint:'Влияет на формальность и детализацию документа',opts:['До 15 человек','15–50 человек','50–150 человек','150–500 человек','Более 500 человек']},
+  {q:'Какие данные обрабатывает ваша компания?',type:'choice',hint:'Выберите наиболее чувствительный тип данных',opts:['Персональные данные клиентов (ФИО, телефоны, email)','Финансовые данные и платёжные реквизиты','Медицинские и биометрические данные','Коммерческая тайна и NDA','Государственные или секретные данные','Только внутренние данные сотрудников']},
+  {q:'Есть ли у вас особо чувствительные данные?',type:'choice',hint:'Специальные категории ПДн требуют усиленной защиты',opts:['Нет, стандартные данные','Данные о здоровье сотрудников или клиентов','Биометрические данные (фото, отпечатки)','Данные несовершеннолетних','Судимости или политические взгляды']},
+  {q:'Какая основная инфраструктура компании?',type:'choice',hint:'Определяет технические меры защиты',opts:['Облачные сервисы (Google, Яндекс, AWS, Azure)','Собственные серверы в офисе','Гибридная (облако + собственные серверы)','Преимущественно рабочие станции без серверов','Удалённые сотрудники без централизованной инфраструктуры']},
+  {q:'Есть ли в компании удалённые сотрудники?',type:'choice',hint:'Удалённая работа требует отдельных мер защиты',opts:['Нет, все работают в офисе','Часть сотрудников работает удалённо','Большинство или все сотрудники удалённые','Гибридный формат']},
+  {q:'Есть ли сторонние подрядчики с доступом к данным?',type:'choice',hint:'Аутсорс и подрядчики — зона повышенного риска',opts:['Нет, только штатные сотрудники','Да, IT-аутсорсинг или разработчики','Да, бухгалтерия или юристы на аутсорсе','Да, несколько категорий подрядчиков']},
+  {q:'Есть ли у вас действующая политика ИБ?',type:'choice',hint:'Поможет определить с чего начать',opts:['Нет, ничего нет','Есть старый документ, неактуальный','Есть отдельные регламенты, но не единый документ','Да, есть, но нужно обновить']},
+  {q:'Были ли инциденты ИБ за последние 2 года?',type:'choice',hint:'Прошлый опыт влияет на акценты документа',opts:['Нет, инцидентов не было','Да, утечка данных или взлом','Да, вирус или ransomware','Да, мошенничество или фишинг сотрудников','Не знаю, не отслеживали']},
+  {q:'Какие нормативные требования нужно выполнить?',type:'choice',hint:'Выберите основной регулятор',opts:['152-ФЗ (персональные данные)','ГОСТ Р 57580 (финансовые организации)','Требования заказчика или партнёра','Подготовка к аудиту или сертификации','Нет конкретных требований — хочу базовую защиту']},
+  {q:'Есть ли в штате специалист по ИБ?',type:'choice',hint:'Влияет на реалистичность требований документа',opts:['Нет, никого','IT-специалист совмещает функции ИБ','Есть выделенный ИБ-специалист','Пользуемся услугами внешнего подрядчика по ИБ']},
+  {q:'Какой повод привёл к созданию политики ИБ?',type:'choice',hint:'Поможет сделать документ релевантным',opts:['Требование клиента или партнёра','Предстоящий аудит или проверка регулятора','Инцидент или утечка данных','Расширение компании','Собственная инициатива — хочу навести порядок']},
+  {q:'Укажите название компании',type:'text',hint:'Будет указано в заголовке документа',placeholder:'Например: ООО «Ромашка» или просто Моя компания'},
+];
+
+let qIndex=0;
+let answers=new Array(questions.length).fill('');
+
+function renderQ(){
+  const q=questions[qIndex];const total=questions.length;
+  const pct=Math.round((qIndex/total)*100);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progLabel').textContent=`Шаг ${qIndex+1} из ${total}`;
+  document.getElementById('progPct').textContent=pct+'%';
+  document.getElementById('btnBack').style.display=qIndex>0?'inline-flex':'none';
+    document.getElementById('btnNext').textContent=qIndex===total-1?'Сгенерировать политику →':'Далее →';
+  var hintHtml=q.hint?'<div class="q-hint">'+q.hint+'</div>':'';
+  var html='<div class="q-text">'+q.q+'</div>'+hintHtml;
+  if(q.type==='choice'){
+    html+='<div class="q-options">';
+    q.opts.forEach(function(o){var sel=answers[qIndex]===o?'sel':'';html+='<button class="q-opt '+sel+'" onclick="selectOpt(this,this.textContent)">'+o+'</button>';});
+    html+='</div>';
+  }else{
+    var curVal=answers[qIndex]||'';
+    html+='<textarea class="q-input" id="textAns" placeholder="'+(q.placeholder||'')+'" oninput="answers['+qIndex+']=this.value">'+curVal+'</textarea>';
+  }
+  document.getElementById('qCard').innerHTML=html;
+}
+
+function selectOpt(el,val){
+  document.querySelectorAll('.q-opt').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');answers[qIndex]=val;
+}
+
+function nextQ(){
+  if(questions[qIndex].type==='text'){const ta=document.getElementById('textAns');answers[qIndex]=ta?ta.value.trim()||'Моя компания':'Моя компания'}
+  if(!answers[qIndex])answers[qIndex]=questions[qIndex].opts?questions[qIndex].opts[0]:'Не указано';
+  if(qIndex<questions.length-1){qIndex++;renderQ()}
+  else{generatePolicy()}
+}
+
+function prevQ(){if(qIndex>0){qIndex--;renderQ()}}
+
+function resetConstructor(){
+  qIndex=0;answers=new Array(questions.length).fill('');
+  document.getElementById('constructorStart').style.display='block';
+  document.getElementById('constructorResult').style.display='none';
+  document.getElementById('resultDone').style.display='none';
+  document.getElementById('checklistBox').style.display='none';
+  renderQ();
+}
+
+function generatePolicy(){
+  // questions order: industry,size,dataType,sensitiveData,infra,remoteWork,thirdParty,currentPolicy,incidents,compliance,secStaff,reason,companyName
+  var industry=answers[0]||'не указана';
+  var size=answers[1]||'не указан';
+  var dataType=answers[2]||'не указаны';
+  var sensitiveData=answers[3]||'нет';
+  var infra=answers[4]||'не указана';
+  var remoteWork=answers[5]||'нет';
+  var thirdParty=answers[6]||'нет';
+  var currentPolicy=answers[7]||'нет';
+  var incidents=answers[8]||'нет';
+  var compliance=answers[9]||'не указано';
+  var secStaff=answers[10]||'нет';
+  var reason=answers[11]||'не указана';
+  var companyName=answers[12]||'Моя компания';
+  document.getElementById('constructorStart').style.display='none';
+  document.getElementById('constructorResult').style.display='block';
+  document.getElementById('resultLoading').classList.add('show');
+  document.getElementById('resultDone').style.display='none';
+  generateWithGroq(companyName,industry,size,dataType,sensitiveData,infra,remoteWork,thirdParty,currentPolicy,incidents,compliance,secStaff,reason);
+}
+
+function _unusedFallback(){
+  // kept for template fallback reference only
+  setTimeout(()=>{
+    var companyName=answers[12]||'Моя компания';
+    var industry=answers[0];var size=answers[1];var dataType=answers[2];var secStaff=answers[10];var infra=answers[4];var reason=answers[11];
+    const result=buildPolicyText(companyName,industry,size,dataType,secStaff,infra,reason);
+    document.getElementById('resultLoading').classList.remove('show');
+    document.getElementById('resultDone').style.display='block';
+    document.getElementById('resultText').textContent=result;
+    buildChecklist(industry,size);
+    saveDocToUser('Политика ИБ — '+companyName,result);
+  },1200);
+}
+
+function buildPolicyText(company,industry,size,dataType,secStaff,infra,reason){
+  const date=new Date().toLocaleDateString('ru');
+  const infraNote=infra.includes('облак')?'включая облачную инфраструктуру':infra.includes('серве')?'включая серверную инфраструктуру':'включая рабочие станции сотрудников';
+  const dataNote=dataType.includes('Персональные')?'персональных данных клиентов и сотрудников в соответствии с требованиями 152-ФЗ':dataType.includes('Финанс')?'финансовых данных и платёжной информации':dataType.includes('Медицин')?'медицинских данных в соответствии с требованиями Минздрава':'коммерческой информации и данных сотрудников';
+  const sizeNote=size.includes('До 15')||size.includes('15–50')?'малого':'среднего';
+  const secNote=secStaff.includes('Нет')?'В компании отсутствует выделенный специалист по информационной безопасности, ответственность возлагается на назначенного сотрудника.':secStaff.includes('Сисадмин')?'Функции информационной безопасности совмещает системный администратор.':'Вопросами информационной безопасности занимается выделенный специалист.';
+
+  return `ПОЛИТИКА ИНФОРМАЦИОННОЙ БЕЗОПАСНОСТИ
+${company}
+
+Дата утверждения: ${date}
+Версия: 1.0
+
+1. ОБЩИЕ ПОЛОЖЕНИЯ
+
+Настоящая Политика информационной безопасности (далее — Политика) устанавливает основные требования и принципы обеспечения защиты информационных ресурсов ${company}.
+
+Политика разработана в соответствии с требованиями Федерального закона № 152-ФЗ «О персональных данных», ГОСТ Р 57580.1-2017 и лучшими практиками в области информационной безопасности.
+
+2. ОБЛАСТЬ ПРИМЕНЕНИЯ
+
+Политика распространяется на всех сотрудников, подрядчиков и партнёров компании, имеющих доступ к информационным системам и ресурсам ${company}.
+
+Политика охватывает все информационные системы компании, ${infraNote}, а также процессы обработки ${dataNote}.
+
+3. ОСНОВНЫЕ ПРИНЦИПЫ
+
+3.1. Конфиденциальность. Информация доступна только тем, кто имеет соответствующие права.
+3.2. Целостность. Информация защищена от несанкционированного изменения.
+3.3. Доступность. Информационные системы доступны авторизованным пользователям в рабочее время.
+3.4. Минимальные привилегии. Каждый сотрудник имеет доступ только к тем ресурсам, которые необходимы для выполнения его обязанностей.
+
+4. УПРАВЛЕНИЕ ДОСТУПОМ
+
+4.1. Каждый сотрудник получает уникальную учётную запись. Использование общих учётных записей запрещено.
+4.2. Пароли должны содержать не менее 8 символов, включать буквы, цифры и специальные символы. Смена пароля — не реже одного раза в 90 дней.
+4.3. При увольнении сотрудника его учётные записи блокируются в день расторжения трудового договора.
+4.4. Доступ к конфиденциальной информации предоставляется на основании письменного запроса, согласованного руководителем подразделения.
+
+5. ЗАЩИТА ИНФОРМАЦИИ
+
+5.1. На всех рабочих станциях и серверах устанавливается актуальное антивирусное программное обеспечение с автоматическим обновлением баз.
+5.2. Резервное копирование критических данных выполняется не реже одного раза в сутки. Резервные копии хранятся в изолированном хранилище.
+5.3. Передача конфиденциальных данных по открытым каналам связи допускается только в зашифрованном виде (TLS 1.2 и выше).
+5.4. Установка программного обеспечения на корпоративные устройства разрешена только после согласования с ответственным за ИТ.
+
+6. ФИЗИЧЕСКАЯ БЕЗОПАСНОСТЬ
+
+6.1. Серверное оборудование и сетевая инфраструктура размещаются в помещениях с ограниченным доступом.
+6.2. Покидая рабочее место, сотрудники обязаны блокировать экран компьютера.
+6.3. Носители информации с конфиденциальными данными уничтожаются способами, исключающими восстановление данных.
+
+7. РЕАГИРОВАНИЕ НА ИНЦИДЕНТЫ
+
+7.1. Любой инцидент информационной безопасности (утечка данных, вирусное заражение, несанкционированный доступ) сотрудник обязан немедленно сообщить ответственному за ИБ.
+7.2. Ответственный за ИБ обязан зафиксировать инцидент, провести первичный анализ и принять меры по локализации угрозы в течение 2 часов.
+7.3. Информация об инцидентах, связанных с персональными данными, передаётся в уполномоченный орган (Роскомнадзор) в порядке, установленном 152-ФЗ.
+
+8. ОТВЕТСТВЕННОСТЬ И КОНТРОЛЬ
+
+${secNote}
+
+Все сотрудники обязаны ознакомиться с настоящей Политикой под подпись. Нарушение требований Политики влечёт дисциплинарную ответственность вплоть до увольнения.
+
+Политика пересматривается не реже одного раза в год или при существенном изменении инфраструктуры и требований законодательства.
+
+Ответственный за актуализацию Политики: руководитель компании / назначенный сотрудник.`;
+}
+
+function buildChecklist(industry,size){
+  const base=['Назначить ответственного за информационную безопасность','Провести инвентаризацию информационных активов','Внедрить политику паролей (от 8 символов, смена каждые 90 дней)','Настроить разграничение прав доступа (принцип минимальных привилегий)','Организовать регулярное резервное копирование данных','Установить антивирусное ПО и настроить автообновление','Провести вводный инструктаж сотрудников по ИБ','Разработать процедуру реагирования на инциденты','Настроить журналирование событий безопасности','Ознакомить сотрудников с политикой ИБ под подпись'];
+  const extra=[];
+  if(industry&&industry.includes('Медицин'))extra.push('Обеспечить соответствие требованиям Минздрава по защите медицинских данных');
+  if(industry&&industry.includes('Финанс'))extra.push('Проверить соответствие требованиям Банка России по ИБ');
+  if(industry&&industry.includes('Торговля'))extra.push('Настроить защиту платёжных данных (PCI DSS)');
+  const items=[...base,...extra];
+  document.getElementById('checklistItems').innerHTML=items.map((it,i)=>`<div class="cl-item"><div class="cl-cb" id="cb${i}" onclick="toggleCb(${i})"></div><span>${it}</span></div>`).join('');
+  document.getElementById('checklistBox').style.display='block';
+}
+
+function toggleCb(i){const cb=document.getElementById('cb'+i);cb.classList.toggle('done');cb.textContent=cb.classList.contains('done')?'✓':''}
+
+function copyResult(){
+  navigator.clipboard.writeText(document.getElementById('resultText').textContent).then(()=>{
+    const b=event.target;b.textContent='Скопировано ✓';setTimeout(()=>b.textContent='Скопировать текст',2000);
+  });
+}
+
+// CONTACTS
+async function sendContact(){
+  const name=document.getElementById('cName').value.trim();
+  const email=document.getElementById('cEmail').value.trim();
+  const topic=document.getElementById('cTopic').value;
+  const msg=document.getElementById('cMsg').value.trim();
+  if(!name||!email||!topic||!msg){alert('Пожалуйста, заполните все поля');return}
+  const btn=document.querySelector('#contactFields button');
+  btn.textContent='Отправляю...';btn.disabled=true;
+  try{
+    const resp=await fetch('https://formspree.io/f/xbdbyqpr',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name,email,topic,message:msg,_subject:'Заявка ScrewSec: '+topic})
+    });
+    if(resp.ok){
+      document.getElementById('contactFields').style.display='none';
+      document.getElementById('formSuccess').style.display='block';
+    }else{
+      btn.textContent='Отправить';btn.disabled=false;
+      alert('Ошибка отправки. Напишите напрямую на boburovtd25@st.ithub.ru');
+    }
+  }catch(e){
+    btn.textContent='Отправить';btn.disabled=false;
+    alert('Ошибка сети. Напишите напрямую на boburovtd25@st.ithub.ru');
+  }
+}
+
+// BLOG
+const posts=[
+  {title:'Что будет, если у компании нет политики ИБ',tag:'152-ФЗ',date:'12 мая 2025',body:`При плановой проверке РКН запрашивает: приказ о назначении ответственного за обработку ПДн, политику обработки персональных данных, согласия субъектов, журналы обращений.\n\n<b>Штрафы с 2025 года</b>\n\nС 30 мая 2025 года вступают оборотные штрафы: от 1% до 3% от годовой выручки за утечку персональных данных. За повторное нарушение — до 500 млн рублей.\n\n<b>Что делать прямо сейчас</b>\n\nМинимальный набор: политика ИБ, положение об обработке ПДн, приказ об ответственном. Создать это можно в ScrewSec за 15 минут.`},
+  {title:'ГОСТ Р 57580.1-2017: что реально нужно знать малому бизнесу',tag:'ГОСТ',date:'28 апр 2025',body:`ГОСТ Р 57580.1-2017 разрабатывался для финансовых организаций, но стал ориентиром для всего рынка.\n\n<b>Основные процессы стандарта</b>\n\nСтандарт описывает 8 процессов: управление доступом, защита от вредоносного кода, сетевая безопасность, управление инцидентами, физическая защита и другие.\n\n<b>Что применимо к малому бизнесу</b>\n\nИз 180+ требований для компании до 50 человек применимы около 40–60. Начать стоит с базового: политика паролей, разграничение доступа, антивирус, резервное копирование, журналирование.`},
+  {title:'Почему шаблон политики ИБ из интернета не работает',tag:'Практика',date:'15 апр 2025',body:`<b>Причина 1: Шаблон написан под другую компанию</b>\n\nТребования к политике ИБ медицинской клиники и IT-стартапа принципиально разные. Универсальный шаблон либо слишком общий, либо содержит требования, которые к вам не относятся.\n\n<b>Причина 2: Документ непонятен исполнителям</b>\n\nЕсли сотрудники не понимают написанного — они это не исполняют. «Бумажная безопасность» не защищает.\n\n<b>Причина 3: Шаблон неактуален</b>\n\nБольшинство шаблонов не учитывают последние изменения в 152-ФЗ и новые требования регуляторов.`},
+  {title:'Топ-5 ошибок в политиках ИБ',tag:'Безопасность',date:'3 апр 2025',body:`<b>1. Нет конкретики</b>\n«Соблюдать требования ИБ» — не требование. Нужно: «Пароль — минимум 8 символов, смена раз в 90 дней».\n\n<b>2. Документ не обновлялся годами</b>\nПолитика ИБ — живой документ.\n\n<b>3. Нет ответственных</b>\nБез назначенного ответственного политика остаётся декларацией.\n\n<b>4. Устаревшие технические требования</b>\nMD5, TLS 1.0 — нельзя использовать по современным стандартам.\n\n<b>5. Сотрудники не ознакомлены</b>\nПо 152-ФЗ сотрудники должны ознакомиться с политикой под подпись.`},
+  {title:'152-ФЗ в 2025 году: новые штрафы',tag:'Персданные',date:'20 мар 2025',body:`С 30 мая 2025 года вступают поправки к КоАП с оборотными штрафами за утечки.\n\n<b>Размеры штрафов</b>\n\nЗа утечку 1000–10 000 записей — от 3 до 5 млн рублей. За утечку более 100 000 записей — от 1% до 3% годовой выручки. За повторное нарушение — до 500 млн рублей.\n\n<b>Что снижает риски</b>\n\nНаличие актуальной политики ИБ и назначенного ответственного — смягчающие обстоятельства при расследовании инцидента.`},
+  {title:'Как подготовиться к проверке РКН',tag:'Аудит',date:'10 мар 2025',body:`<b>Обязательные документы</b>\n\n1. Политика обработки персональных данных (опубликована на сайте)\n2. Приказ о назначении ответственного\n3. Согласия субъектов на обработку ПДн\n4. Политика информационной безопасности\n5. Журнал учёта обращений субъектов\n6. Соглашения с третьими лицами\n\n<b>Сроки</b>\n\nО плановой проверке уведомляют за 3 дня. Внеплановую могут провести без предупреждения — по жалобе субъекта.`},
+];
+
+function openPost(i){
+  const p=posts[i];
+  document.getElementById('postContent').innerHTML=
+    `<div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:10px">${p.tag} · ${p.date}</div>`+
+    `<h2 style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--white);letter-spacing:2px;margin-bottom:24px;line-height:1.1">${p.title}</h2>`+
+    `<div style="font-size:15px;color:var(--muted);line-height:1.85">${p.body.replace(/\n/g,'<br>').replace(/<b>/g,'<b style="color:var(--txt)">').replace(/\n\n/g,'<br><br>')}</div>`;
+  document.getElementById('postModal').style.display='block';
+}
+function closePost(){document.getElementById('postModal').style.display='none'}
+
+
+// ═══ MOBILE MENU ═══
+function toggleMob(){
+  document.getElementById('mobMenu').classList.toggle('open');
+}
+function closeMob(){
+  document.getElementById('mobMenu').classList.remove('open');
+}
+function mobNav(page){
+  closeMob();
+  nav(page);
+}
+
+// ═══ API KEY (not needed - handled server-side) ═══
+function initApiBlock(){ /* key is server-side, nothing to init */ }
+
+// ═══ PDF DOWNLOAD (print-based, works with Russian) ═══
+function downloadPDF(){
+  var text=document.getElementById('resultText').textContent;
+  if(!text||text.length<50){alert('Сначала сгенерируйте документ');return}
+  var today=new Date().toLocaleDateString('ru');
+  var paragraphs=text.split('\n').map(function(line){
+    var t=line.trim();
+    if(!t)return '<div style="height:6px"></div>';
+    if(/^[0-9]+\./.test(t))return '<h2>'+t+'</h2>';
+    return '<p>'+t+'</p>';
+  }).join('');
+  var css='@page{margin:20mm 25mm}'
+    +'body{font-family:Arial,sans-serif;font-size:11pt;color:#111;line-height:1.7;max-width:170mm;margin:0 auto}'
+    +'h1{font-size:14pt;text-align:center;border-bottom:2px solid #bf3030;padding-bottom:8px;margin-bottom:4px}'
+    +'.meta{text-align:center;font-size:9pt;color:#666;margin-bottom:20px}'
+    +'h2{font-size:11pt;font-weight:bold;margin:16px 0 4px}'
+    +'p{margin:4px 0;text-align:justify}'
+    +'.footer{margin-top:24px;border-top:1px solid #ccc;padding-top:6px;font-size:8pt;color:#999;text-align:center}'
+    +'@media print{.noprint{display:none}}';
+  var html='<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><title>Политика ИБ</title>'
+    +'<style>'+css+'</style></head><body>'
+    +'<div class="noprint" style="background:#111;color:#fff;padding:10px 20px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center">'
+    +'<span style="font-size:11px;font-family:monospace">SCREWSEC — ПОЛИТИКА ИБ</span>'
+    +'<button onclick="window.print()" style="background:#bf3030;color:#fff;border:none;padding:7px 18px;cursor:pointer;font-family:monospace;font-size:11px">СКАЧАТЬ PDF</button>'
+    +'</div>'
+    +'<h1>ПОЛИТИКА ИНФОРМАЦИОННОЙ БЕЗОПАСНОСТИ</h1>'
+    +'<div class="meta">ScrewSec &nbsp;|&nbsp; '+today+'</div>'
+    +paragraphs
+    +'<div class="footer">ScrewSec — screwsec.netlify.app</div>'
+    +'</body></html>';
+  var w=window.open('','_blank','width=860,height=700');
+  w.document.write(html);
+  w.document.close();
+  w.focus();
+}
+
+// ═══ GENERATE POLICY via Netlify Function (Groq on server) ═══
+function generatePolicy(){
+  const[industry,size,dataType,currentPolicy,reason,secStaff,infra,companyName]=answers;
+  document.getElementById('constructorStart').style.display='none';
+  document.getElementById('constructorResult').style.display='block';
+  document.getElementById('resultLoading').classList.add('show');
+  document.getElementById('resultDone').style.display='none';
+  generateWithGroq(companyName,industry,size,dataType,currentPolicy,reason,secStaff,infra);
+}
+
+async function generateWithGroq(companyName,industry,size,dataType,sensitiveData,infra,remoteWork,thirdParty,currentPolicy,incidents,compliance,secStaff,reason){
+  try{
+    const resp=await fetch('/api/generate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({companyName,industry,size,dataType,sensitiveData,infra,remoteWork,thirdParty,currentPolicy,incidents,compliance,secStaff,reason})
+    });
+    if(!resp.ok){const err=await resp.json().catch(()=>({}));throw new Error(err.error||'Ошибка сервера '+resp.status)}
+    const data=await resp.json();
+    const result=data.result;
+    document.getElementById('resultLoading').classList.remove('show');
+    document.getElementById('resultDone').style.display='block';
+    document.getElementById('resultText').textContent=result;
+    buildChecklist(industry,size);
+    saveDocToUser('Политика ИБ (AI) — '+companyName,result);
+  }catch(e){
+    console.warn('Groq error, template fallback:',e.message);
+    const result=buildPolicyText(companyName,industry,size,dataType,secStaff,infra,reason);
+    document.getElementById('resultLoading').classList.remove('show');
+    document.getElementById('resultDone').style.display='block';
+    document.getElementById('resultText').textContent=result+'\n\n[Шаблонная версия. Проверьте GROQ_API_KEY в Netlify.]';
+    buildChecklist(industry,size);
+    saveDocToUser('Политика ИБ — '+companyName,result);
+  }
+}
+
+// ═══ FAQ ═══
+var faqs=[
+  {q:'Что такое политика информационной безопасности?',a:'Это документ, который описывает как компания защищает свои данные и информационные системы. Он определяет правила работы с данными, требования к паролям, порядок реагирования на инциденты и ответственность сотрудников. Без этого документа компания нарушает требования 152-ФЗ.'},
+  {q:'Обязательна ли политика ИБ для малого бизнеса?',a:'Если ваша компания обрабатывает персональные данные хотя бы одного клиента или сотрудника — да, обязательна. Этого требует 152-ФЗ. С 2025 года штрафы за его нарушение стали оборотными — до 3% от годовой выручки.'},
+  {q:'Чем ScrewSec отличается от шаблона из интернета?',a:'Шаблон одинаковый для всех. ScrewSec задаёт вопросы о вашей компании и генерирует документ с учётом вашей отрасли, размера, инфраструктуры и конкретных требований. Медицинская клиника и IT-стартап получат разные документы.'},
+  {q:'Как долго действует политика ИБ?',a:'Документ нужно пересматривать не реже одного раза в год или при существенных изменениях: смена инфраструктуры, новые сотрудники, новые виды данных. ScrewSec позволяет создать обновлённую версию в любой момент.'},
+  {q:'Достаточно ли одной политики ИБ для соответствия 152-ФЗ?',a:'Политика ИБ — один из обязательных документов. Также нужны: положение об обработке ПДн, согласия субъектов, приказ о назначении ответственного. Мы работаем над полным пакетом документов — следите за обновлениями.'},
+  {q:'Можно ли скачать готовый документ?',a:'Да. После прохождения опросника вы получаете политику ИБ, которую можно скачать в PDF прямо на сайте. Формат DOCX доступен в тарифе Бизнес.'},
+];
+function initFaq(){
+  var box=document.getElementById('faqList');
+  if(!box)return;
+  box.innerHTML=faqs.map(function(f,i){
+    return '<div class="faq-item" id="faq'+i+'">'
+      +'<div class="faq-q" onclick="toggleFaq('+i+')">'
+      +f.q
+      +'<span class="faq-arrow">+</span>'
+      +'</div>'
+      +'<div class="faq-a">'+f.a+'</div>'
+      +'</div>';
+  }).join('');
+}
+function toggleFaq(i){
+  var item=document.getElementById('faq'+i);
+  item.classList.toggle('open');
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  renderQ();
+  initApiBlock();
+  initFaq();
+  var u=getCurrentUser();if(u)updateNavForUser(u);
+  document.getElementById('authModal').addEventListener('click',function(e){if(e.target===this)closeAuth();});
+  document.getElementById('mobMenu').addEventListener('click',function(e){if(e.target===this)closeMob();});
+});
+
+// ═══ CANVAS PARTICLE NETWORK (mouse-interactive) ═══
+(function(){
+  var canvas = document.getElementById('heroCanvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var mouse = {x: -9999, y: -9999};
+  var particles = [];
+  var N = 70;
+  var animId;
+
+  function resize(){
+    var hero = canvas.parentElement;
+    var w = hero ? hero.offsetWidth : 0;
+    var h = hero ? hero.offsetHeight : 0;
+    canvas.width = w > 0 ? w : window.innerWidth;
+    canvas.height = h > 0 ? h : window.innerHeight;
+  }
+
+  function Particle(){
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4;
+    this.r = Math.random() * 1.5 + 0.5;
+    this.opacity = Math.random() * 0.5 + 0.2;
+  }
+
+  Particle.prototype.update = function(){
+    // Mouse attraction
+    var dx = mouse.x - this.x;
+    var dy = mouse.y - this.y;
+    var dist = Math.sqrt(dx*dx + dy*dy);
+    if(dist < 160 && dist > 0){
+      var force = (160 - dist) / 160 * 0.015;
+      this.vx += dx / dist * force;
+      this.vy += dy / dist * force;
+    }
+    // Speed cap
+    var speed = Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+    if(speed > 1.2){ this.vx = this.vx/speed*1.2; this.vy = this.vy/speed*1.2; }
+    this.x += this.vx;
+    this.y += this.vy;
+    // Wrap edges
+    if(this.x < 0) this.x = canvas.width;
+    if(this.x > canvas.width) this.x = 0;
+    if(this.y < 0) this.y = canvas.height;
+    if(this.y > canvas.height) this.y = 0;
+  };
+
+  function init(){
+    particles = [];
+    for(var i=0;i<N;i++) particles.push(new Particle());
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    // Draw connections
+    for(var i=0;i<particles.length;i++){
+      for(var j=i+1;j<particles.length;j++){
+        var dx = particles[i].x - particles[j].x;
+        var dy = particles[i].y - particles[j].y;
+        var dist = Math.sqrt(dx*dx+dy*dy);
+        if(dist < 120){
+          var alpha = (1 - dist/120) * 0.25;
+          // Mouse proximity boosts line brightness
+          var mdx = mouse.x - (particles[i].x+particles[j].x)/2;
+          var mdy = mouse.y - (particles[i].y+particles[j].y)/2;
+          var md = Math.sqrt(mdx*mdx+mdy*mdy);
+          if(md < 180) alpha += (1-md/180)*0.3;
+          ctx.strokeStyle = 'rgba(191,48,48,'+Math.min(alpha,0.6)+')';
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    // Draw dots
+    for(var i=0;i<particles.length;i++){
+      var p = particles[i];
+      var dx = mouse.x - p.x, dy = mouse.y - p.y;
+      var md = Math.sqrt(dx*dx+dy*dy);
+      var glow = md < 140 ? (1-md/140)*0.8 : 0;
+      var alpha = p.opacity + glow;
+      ctx.fillStyle = 'rgba(191,48,48,'+Math.min(alpha,0.9)+')';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r + glow*1.5, 0, Math.PI*2);
+      ctx.fill();
+    }
+  }
+
+  function loop(){
+    particles.forEach(function(p){p.update();});
+    draw();
+    animId = requestAnimationFrame(loop);
+  }
+
+  function start(){
+    resize();
+    init();
+    if(animId) cancelAnimationFrame(animId);
+    loop();
+  }
+
+  // Only run when home page is visible
+  var observer = new MutationObserver(function(){
+    var home = document.getElementById('home');
+    if(home && home.classList.contains('active')){
+      cancelAnimationFrame(animId); animId=null;
+      setTimeout(start, 50);
+    } else {
+      if(animId){ cancelAnimationFrame(animId); animId=null; }
+    }
+  });
+  var home = document.getElementById('home');
+  if(home) observer.observe(home, {attributes:true, attributeFilter:['class']});
+
+  window.addEventListener('resize', function(){
+    resize(); init();
+  });
+
+  document.addEventListener('mousemove', function(e){
+    var rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+  document.addEventListener('mouseleave', function(){
+    mouse.x = -9999; mouse.y = -9999;
+  });
+
+  // Start after DOM is fully painted
+  if(home && home.classList.contains('active')){
+    setTimeout(start, 100);
+  }
+})();
+</script>
+</body>
+</html>
