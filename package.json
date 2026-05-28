@@ -1,0 +1,7 @@
+{
+  "name": "screwsec",
+  "private": true,
+  "dependencies": {
+    "@cloudflare/kv-asset-handler": "^0.3.4"
+  }
+}
