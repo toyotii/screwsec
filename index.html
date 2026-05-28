@@ -1288,7 +1288,7 @@ function generatePolicy(){
 
 async function generateWithGroq(companyName,industry,size,dataType,sensitiveData,infra,remoteWork,thirdParty,currentPolicy,incidents,compliance,secStaff,reason){
   try{
-    const resp=await fetch('/.netlify/functions/generate',{
+    const resp=await fetch('/functions/generate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({companyName,industry,size,dataType,sensitiveData,infra,remoteWork,thirdParty,currentPolicy,incidents,compliance,secStaff,reason})
