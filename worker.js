@@ -1,45 +1,51 @@
 import { getAssetFromKV } from '@cloudflare/kv-asset-handler'
+import manifestJSON from '__STATIC_CONTENT_MANIFEST'
 
-addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event))
-})
+const assetManifest = JSON.parse(manifestJSON)
 
-async function handleRequest(event) {
-  const request = event.request
-  const url = new URL(request.url)
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url)
 
-  // CORS preflight
-  if (request.method === 'OPTIONS') {
-    return new Response(null, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      }
-    })
-  }
+    // CORS preflight
+    if (request.method === 'OPTIONS') {
+      return new Response(null, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        }
+      })
+    }
 
-  // API endpoint → Groq
-  if (url.pathname === '/api/generate' && request.method === 'POST') {
-    return handleGenerate(request)
-  }
+    // API → Groq
+    if (url.pathname === '/api/generate' && request.method === 'POST') {
+      return handleGenerate(request, env)
+    }
 
-  // Статика из /public
-  try {
-    return await getAssetFromKV(event)
-  } catch (e) {
-    return new Response('Not Found', { status: 404 })
+    // Статика из /public
+    try {
+      return await getAssetFromKV(
+        { request, waitUntil: ctx.waitUntil.bind(ctx) },
+        {
+          ASSET_NAMESPACE: env.__STATIC_CONTENT,
+          ASSET_MANIFEST: assetManifest,
+        }
+      )
+    } catch (e) {
+      return new Response('Not Found', { status: 404 })
+    }
   }
 }
 
-async function handleGenerate(request) {
+async function handleGenerate(request, env) {
   try {
     const body = await request.json()
 
     const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${GROQ_API_KEY}`,
+        'Authorization': `Bearer ${env.GROQ_API_KEY}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
